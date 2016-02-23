@@ -1,0 +1,18 @@
+<div class="center-div">
+  <h1>Log In</h1><br>
+  <div class="form-group">
+    <% if !flash.now[:error].nil? %>
+      <div class="alert alert-danger"><%= flash.now[:error] %></div>
+    <% end %>
+    <%= form_for(:session_data, url: sessions_path) do |f| %>
+      <div class="form-group">
+        <%= f.label :email %>
+        <%= f.email_field :email, class: "form-control" %>
+        <br>
+        <%= f.label :password %>
+        <%= f.password_field :password, class: "form-control" %>
+      </div>
+      <%= f.submit "Login", class:"btn btn-default" %>
+    <% end %>
+  </div>
+</div>
