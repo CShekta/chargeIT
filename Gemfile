@@ -36,6 +36,9 @@ gem 'dotenv-rails'
 
 gem 'httparty'
 
+gem "d3-rails"
+
+
 # Use Unicorn as the app server
 # gem 'unicorn'
 
