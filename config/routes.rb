@@ -7,4 +7,5 @@ Rails.application.routes.draw do
   get 'logout' => 'sessions#destroy', :as => 'logout'
 
   get 'map' => 'maps#map', :as => 'map'
+  get 'graph_test' => 'maps#graph_test'
 end

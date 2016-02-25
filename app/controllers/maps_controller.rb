@@ -15,6 +15,14 @@ class MapsController < ApplicationController
     response = HTTParty.get("https://api.watttime.org:443/api/v1/datapoints/?ba=BPA&start_at=2016-02-23&freq=5m&market=RT5M", headers={'Authorization': "Token #{ENV['WATT_TIME_TOKEN']}"})
     @response = response["results"]
 
+    # response = HTTParty.get("https://api.watttime.org:443/api/v1/marginal/?ba=BPA&start_at=2016-02-23&freq=5m&market=RT5M", headers={'Authorization': "Token #{ENV['WATT_TIME_TOKEN']}"})
+    # binding.pry
+    # @response = response["results"]
+  end
+
+  def graph_test
+    response = HTTParty.get("https://api.watttime.org:443/api/v1/datapoints/?ba=BPA&start_at=2016-02-23&freq=5m&market=RT5M", headers={'Authorization': "Token #{ENV['WATT_TIME_TOKEN']}"})
+    @response = response["results"]
   end
 
   def get_balancing_authority(lat,long)
