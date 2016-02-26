@@ -57,7 +57,7 @@ function dashboard(id, fData){
     function segColor(c){ return {low:"#807dba", mid:"#e08214",high:"#41ab5d"}[c]; }
 
     // compute total for each state.
-    fData.forEach(function(d){d.total=d.freq.low+d.freq.mid+d.freq.high;});
+    fData.forEach(function(d){d.total=d.fuel.thermal+d.fuel.hydro+d.fuel.wind;});
 
     // function to handle histogram.
     function histoGram(fD){
@@ -106,8 +106,8 @@ function dashboard(id, fData){
 
         function mouseover(d){  // utility function to be called on mouseover.
             // filter for selected state.
-            var st = fData.filter(function(s){ return s.State == d[0];})[0],
-                nD = d3.keys(st.freq).map(function(s){ return {type:s, freq:st.freq[s]};});
+            var st = fData.filter(function(s){ return s.timestamp == d[0];})[0],
+                nD = d3.keys(st.fuel).map(function(s){ return {type:s, freq:st.fuel[s]};});
 
             // call update functions of pie-chart and legend.
             pC.update(nD);
@@ -156,7 +156,7 @@ function dashboard(id, fData){
         var arc = d3.svg.arc().outerRadius(pieDim.r - 10).innerRadius(0);
 
         // create a function to compute the pie slice angles.
-        var pie = d3.layout.pie().sort(null).value(function(d) { return d.freq; });
+        var pie = d3.layout.pie().sort(null).value(function(d) { return d.fuel; });
 
         // Draw the pie slices.
         piesvg.selectAll("path").data(pie(pD)).enter().append("path").attr("d", arc)
@@ -173,13 +173,13 @@ function dashboard(id, fData){
         function mouseover(d){
             // call the update function of histogram with new data.
             hG.update(fData.map(function(v){
-                return [v.State,v.freq[d.data.type]];}),segColor(d.data.type));
+                return [v.timestamp,v.freq[d.data.type]];}),segColor(d.data.type));
         }
         //Utility function to be called on mouseout a pie slice.
         function mouseout(d){
             // call the update function of histogram with all data.
             hG.update(fData.map(function(v){
-                return [v.State,v.total];}), barColor);
+                return [v.timestamp,v.total];}), barColor);
         }
         // Animating the pie-slice requiring a custom function which specifies
         // how the intermediate paths should be drawn.
@@ -211,7 +211,7 @@ function dashboard(id, fData){
 
         // create the third column for each segment.
         tr.append("td").attr("class",'legendFreq')
-            .text(function(d){ return d3.format(",")(d.freq);});
+            .text(function(d){ return d3.format(",")(d.fuel);});
 
         // create the fourth column for each segment.
         tr.append("td").attr("class",'legendPerc')
@@ -223,26 +223,26 @@ function dashboard(id, fData){
             var l = legend.select("tbody").selectAll("tr").data(nD);
 
             // update the frequencies.
-            l.select(".legendFreq").text(function(d){ return d3.format(",")(d.freq);});
+            l.select(".legendFreq").text(function(d){ return d3.format(",")(d.fuel);});
 
             // update the percentage column.
             l.select(".legendPerc").text(function(d){ return getLegend(d,nD);});
         }
 
         function getLegend(d,aD){ // Utility function to compute percentage.
-            return d3.format("%")(d.freq/d3.sum(aD.map(function(v){ return v.freq; })));
+            return d3.format("%")(d.fuel/d3.sum(aD.map(function(v){ return v.fuel; })));
         }
 
         return leg;
     }
 
     // calculate total frequency by segment for all state.
-    var tF = ['low','mid','high'].map(function(d){
-        return {type:d, freq: d3.sum(fData.map(function(t){ return t.freq[d];}))};
+    var tF = ['thermal','hydro','wind'].map(function(d){
+        return {type:d, fuel: d3.sum(data.map(function(t){ return t.fuel[d];}))};
     });
 
     // calculate total frequency by state for all segment.
-    var sF = fData.map(function(d){return [d.State,d.total];});
+    var sF = fData.map(function(d){return [d.timestamp,d.total];});
 
     var hG = histoGram(sF), // create the histogram.
         pC = pieChart(tF), // create the pie-chart.
