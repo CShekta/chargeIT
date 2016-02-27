@@ -25,6 +25,10 @@ class MapsController < ApplicationController
     @response = response["results"]
   end
 
+  def map_test
+
+  end
+
   def get_balancing_authority(lat,long)
     response = HTTParty.get("https://api.watttime.org/api/v1/balancing_authorities/?loc={'type':'Point','coordinates':[#{lat},#{long}]}")
     @name = response[0]["name"]

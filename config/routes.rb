@@ -8,4 +8,6 @@ Rails.application.routes.draw do
 
   get 'map' => 'maps#map', :as => 'map'
   get 'graph_test' => 'maps#graph_test'
+  get 'map_test' => 'maps#map_test'
+
 end
