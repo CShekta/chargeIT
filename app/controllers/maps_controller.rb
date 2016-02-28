@@ -20,6 +20,10 @@ class MapsController < ApplicationController
     # @response = response["results"]
   end
 
+  def about
+
+  end
+
   def graph_test
     response = HTTParty.get("https://api.watttime.org:443/api/v1/datapoints/?ba=BPA&start_at=2016-02-27&freq=5m&market=RT5M", headers={'Authorization': "Token #{ENV['WATT_TIME_TOKEN']}"})
     @response = response["results"]
