@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<ol>
+<!-- <ol>
   <% @response.each do |response| %>
   <li><%= response["timestamp"].to_date %></li>
     <ul>
@@ -8,7 +8,7 @@
       <% end %>
     </ul>
   <% end %>
-</ol>
+</ol> -->
 
 <meta charset="utf-8">
 <style>
@@ -54,10 +54,10 @@ rect:hover {  fill:blue; }
 <script>
 function dashboard(id, fData){
     var barColor = 'steelblue';
-    function segColor(c){ return {low:"#807dba", mid:"#e08214",high:"#41ab5d"}[c]; }
+    function segColor(c){ return {hydro:"#807dba", wind:"#e08214",thermal:"#41ab5d"}[c]; }
 
     // compute total for each state.
-    fData.forEach(function(d){d.total=d.fuel.thermal+d.fuel.hydro+d.fuel.wind;});
+    fData.forEach(function(d){d.total=d.fuels.hydro+d.fuels.wind+d.fuels.thermal;});
 
     // function to handle histogram.
     function histoGram(fD){
@@ -107,7 +107,7 @@ function dashboard(id, fData){
         function mouseover(d){  // utility function to be called on mouseover.
             // filter for selected state.
             var st = fData.filter(function(s){ return s.timestamp == d[0];})[0],
-                nD = d3.keys(st.fuel).map(function(s){ return {type:s, freq:st.fuel[s]};});
+                nD = d3.keys(st.fuels).map(function(s){ return {type:s, fuels:st.fuels[s]};});
 
             // call update functions of pie-chart and legend.
             pC.update(nD);
@@ -156,7 +156,7 @@ function dashboard(id, fData){
         var arc = d3.svg.arc().outerRadius(pieDim.r - 10).innerRadius(0);
 
         // create a function to compute the pie slice angles.
-        var pie = d3.layout.pie().sort(null).value(function(d) { return d.fuel; });
+        var pie = d3.layout.pie().sort(null).value(function(d) { return d.fuels; });
 
         // Draw the pie slices.
         piesvg.selectAll("path").data(pie(pD)).enter().append("path").attr("d", arc)
@@ -173,7 +173,7 @@ function dashboard(id, fData){
         function mouseover(d){
             // call the update function of histogram with new data.
             hG.update(fData.map(function(v){
-                return [v.timestamp,v.freq[d.data.type]];}),segColor(d.data.type));
+                return [v.timestamp,v.fuels[d.data.type]];}),segColor(d.data.type));
         }
         //Utility function to be called on mouseout a pie slice.
         function mouseout(d){
@@ -211,7 +211,7 @@ function dashboard(id, fData){
 
         // create the third column for each segment.
         tr.append("td").attr("class",'legendFreq')
-            .text(function(d){ return d3.format(",")(d.fuel);});
+            .text(function(d){ return d3.format(",")(d.fuels);});
 
         // create the fourth column for each segment.
         tr.append("td").attr("class",'legendPerc')
@@ -223,14 +223,14 @@ function dashboard(id, fData){
             var l = legend.select("tbody").selectAll("tr").data(nD);
 
             // update the frequencies.
-            l.select(".legendFreq").text(function(d){ return d3.format(",")(d.fuel);});
+            l.select(".legendFreq").text(function(d){ return d3.format(",")(d.fuels);});
 
             // update the percentage column.
             l.select(".legendPerc").text(function(d){ return getLegend(d,nD);});
         }
 
         function getLegend(d,aD){ // Utility function to compute percentage.
-            return d3.format("%")(d.fuel/d3.sum(aD.map(function(v){ return v.fuel; })));
+            return d3.format("%")(d.fuels/d3.sum(aD.map(function(v){ return v.fuels; })));
         }
 
         return leg;
@@ -238,7 +238,7 @@ function dashboard(id, fData){
 
     // calculate total frequency by segment for all state.
     var tF = ['thermal','hydro','wind'].map(function(d){
-        return {type:d, fuel: d3.sum(data.map(function(t){ return t.fuel[d];}))};
+        return {type:d, fuels: d3.sum(fData.map(function(t){ return t.fuels[d];}))};
     });
 
     // calculate total frequency by state for all segment.
@@ -251,8 +251,6 @@ function dashboard(id, fData){
 </script>
 
 <script>
-var data = <%= raw(@response.to_json) %>;
-
 var freqData=[
 {State:'AL',freq:{low:4786, mid:1319, high:249}}
 ,{State:'AZ',freq:{low:1101, mid:412, high:674}}
@@ -266,5 +264,15 @@ var freqData=[
 ,{State:'KS',freq:{low:162, mid:379, high:471}}
 ];
 
-dashboard('#dashboard', data);
+var genmixData = <%= raw(@response.to_json) %>
+genmixData.forEach(function(d) {
+  d.fuels = {};
+  d.genmix.forEach(function(d2) {
+    d.fuels[d2["fuel"]] = +d2["gen_MW"];
+  })
+
+});
+console.log(genmixData);
+
+dashboard('#dashboard',genmixData);
 </script>
