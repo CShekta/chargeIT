@@ -31,6 +31,7 @@ class MapsController < ApplicationController
 
   def map_test
     gon.stations = Station.all
+    gon.coordinates =
   end
 
   def get_balancing_authority(lat,long)

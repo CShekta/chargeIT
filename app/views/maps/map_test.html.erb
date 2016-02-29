@@ -14,21 +14,25 @@ L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={
 }).addTo(map);
 
 var stations = gon.stations;
+
 stations.forEach(function(station) {
   L.marker([station.lat, station.long]).addTo(map)
       .bindPopup('<h5>' + station.name + '</h5><br /><p>This is a nice popup.</p>')
-      .openPopup();
+      .openPopup()
+      .on('click', onClick);
 });
-
 var popup = L.popup();
 
-function onMarkerClick(e) {
-    popup
-        .setLatLng(e.latlng)
-        .setContent("You clicked the map at " + e.latlng.toString())
-        .openOn(map);
+function onClick(e) {
+  var coordinates = e.latlng;
+  console.log(coordinates.toString());
+  console.log(coordinates[0])
 }
 
-marker.on('click', onMarkerClick);
+
+// function onClick(e) {
+//   var m = e.getLatLng();
+//   console.log(m.lat)
+// }
 
 </script>
