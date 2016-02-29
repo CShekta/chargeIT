@@ -13,5 +13,8 @@ L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={
     accessToken: 'pk.eyJ1Ijoic2hla3RhYmVhciIsImEiOiJjaWw2MG1jbnMwMDVmdWhsdmlqMXBtbDNvIn0.j9O4rlghTMC3oEEGHFSbuQ'
 }).addTo(map);
 
+L.marker([47.624667, -122.322878]).addTo(map)
+    .bindPopup('<h5>Hello world!<br />This is a nice popup.</h5>')
+    .openPopup();
 
 </script>
