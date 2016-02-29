@@ -40,6 +40,7 @@ gem "d3-rails"
 
 gem 'metrics-graphics-rails'
 
+gem 'gon'
 # Use Unicorn as the app server
 # gem 'unicorn'
 
