@@ -1,0 +1,25 @@
+FactoryGirl.define do
+  factory :station do
+    ev_id "MyString"
+    integer "MyString"
+    name "MyString"
+    string "MyString"
+    icon "MyString"
+    string "MyString"
+    lat "MyString"
+    float "MyString"
+    long "MyString"
+    float "MyString"
+    description "MyString"
+    string "MyString"
+    score "MyString"
+    float "MyString"
+    cost "MyString"
+    boolean "MyString"
+    cost_description "MyString"
+    string "MyString"
+    access "MyString"
+    integer "MyString"
+    url "MyString"
+  end
+end
