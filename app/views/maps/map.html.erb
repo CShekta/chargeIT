@@ -3,92 +3,27 @@
 <% content_for :head do %>
   hello
 <% end %>
-<div>
-  <!-- <iframe src="http://www.plugshare.com/widget.html?latitude=&longitude=&spanLat=&spanLng=" width="800" height="600"></iframe> -->
-    <iframe src="http://openchargemap.org/app/?mode=embedded" width="800" height="600"></iframe>
-</div>
-<div>
+    <!-- <iframe src="http://openchargemap.org/app/?mode=embedded" width="800" height="600"></iframe> -->
+<!-- <div>
   <h3>Watt Time Data</h3>
   <p>name: <%= @name %></p>
   <p>carbon: <%= @carbon %></p>
   <ol>
     <% @response.each do |d| %>
       <li>
-        <%= d["timestamp"] %> ----- <%= d["carbon"] %>
+        <%= d["timestamp"] %> <%= d["carbon"] %>
       </li>
     <% end %>
   </ol>
 <hr/>
 <%= @response %>
 
-</div>
+</div> -->
 
+<span id="carbon">
 
-<div class="container">
-  <svg class="chart"></svg>
-    <script>
+</span>
+<%= data = raw(@response.to_json) %>;
 
-      var data = <%= raw(@response.to_json) %>;
-
-      var margin = {top: 20, right: 20, bottom: 30, left: 50},
-          width = 960 - margin.left - margin.right,
-          height = 500 - margin.top - margin.bottom;
-
-      var parseDate = d3.time.format("%Y-%m-%dT%H:%M:%SZ").parse;
-
-      var x = d3.time.scale()
-          .range([0, width]);
-
-      var y = d3.scale.linear()
-          .range([height, 0]);
-
-      var xAxis = d3.svg.axis()
-          .scale(x)
-          .orient("bottom");
-
-      var yAxis = d3.svg.axis()
-          .scale(y)
-          .orient("left");
-
-      var area = d3.svg.area()
-          .x(function(d) { return x(d.timestamp); })
-          .y0(height)
-          .y1(function(d) { return y(d.carbon); });
-
-      var svg = d3.select("body").append("svg")
-          .attr("width", width + margin.left + margin.right)
-          .attr("height", height + margin.top + margin.bottom)
-        .append("g")
-          .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-
-
-        data.forEach(function(d) {
-          d.timestamp = parseDate(d.timestamp);
-          d.carbon = +d.carbon;
-        });
-
-        x.domain(d3.extent(data, function(d) { return d.timestamp; }));
-        y.domain([0, d3.max(data, function(d) { return d.carbon; })]);
-
-        svg.append("path")
-            .datum(data)
-            .attr("class", "area")
-            .attr("d", area);
-
-        svg.append("g")
-            .attr("class", "x axis")
-            .attr("transform", "translate(0," + height + ")")
-            .call(xAxis);
-
-        svg.append("g")
-            .attr("class", "y axis")
-            .call(yAxis)
-          .append("text")
-            .attr("transform", "rotate(-90)")
-            .attr("y", 6)
-            .attr("dy", ".71em")
-            .style("text-anchor", "end")
-            .text("Carbon Emissions (lb/MW)");
-
-  </script>
-</div>
+<%= metrics_graphic_for JSON.parse(data), target: '#carbon', title: "Carbon Emission (lb per MW)", description: "This graphic shows a time-series of carbon.", width: 600, height: 250, x_accessor: 'timestamp', y_accessor: 'carbon', time_format: '%Y-%m-%dT%H:%M:%SZ'
+ %>

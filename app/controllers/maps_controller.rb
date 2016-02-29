@@ -12,7 +12,7 @@ class MapsController < ApplicationController
     # @carbon = response["results"][0]["carbon"]
     # @genmix = response["results"][0]["genmix"]
 
-    response = HTTParty.get("https://api.watttime.org:443/api/v1/datapoints/?ba=BPA&start_at=2016-02-23&freq=5m&market=RT5M", headers={'Authorization': "Token #{ENV['WATT_TIME_TOKEN']}"})
+    response = HTTParty.get("https://api.watttime.org:443/api/v1/datapoints/?ba=BPA&start_at=2016-02-28&freq=5m&market=RT5M", headers={'Authorization': "Token #{ENV['WATT_TIME_TOKEN']}"})
     @response = response["results"]
 
     # response = HTTParty.get("https://api.watttime.org:443/api/v1/marginal/?ba=BPA&start_at=2016-02-23&freq=5m&market=RT5M", headers={'Authorization': "Token #{ENV['WATT_TIME_TOKEN']}"})

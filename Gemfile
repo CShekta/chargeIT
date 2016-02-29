@@ -38,6 +38,7 @@ gem 'httparty'
 
 gem "d3-rails"
 
+gem 'metrics-graphics-rails'
 
 # Use Unicorn as the app server
 # gem 'unicorn'
