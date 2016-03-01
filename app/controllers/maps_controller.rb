@@ -5,14 +5,13 @@ class MapsController < ApplicationController
   LONG = 37.871667
 
   def map
-    # @name = get_balancing_authority(LAT, LONG)
-    # ba = get_abbrev_by_location(LAT, LONG)
+    gon.stations = Station.all
+    ba = get_ba(LAT, LONG)
+    start_time = (Time.now - 2.day).strftime("%Y-%m-%d")
     #
     # response = HTTParty.get("https://api.watttime.org:443/api/v1/datapoints/?ba=#{ba}&page_size=1", headers={'Authorization': "Token #{ENV['WATT_TIME_TOKEN']}"})
-    # @carbon = response["results"][0]["carbon"]
-    # @genmix = response["results"][0]["genmix"]
 
-    response = HTTParty.get("https://api.watttime.org:443/api/v1/datapoints/?ba=BPA&start_at=2016-02-28&freq=5m&market=RT5M", headers={'Authorization': "Token #{ENV['WATT_TIME_TOKEN']}"})
+    response = HTTParty.get("https://api.watttime.org:443/api/v1/datapoints/?ba=BPA&start_at=#{start_time}&freq=5m&market=RT5M", headers={'Authorization': "Token #{ENV['WATT_TIME_TOKEN']}"})
     @response = response["results"]
 
     # response = HTTParty.get("https://api.watttime.org:443/api/v1/marginal/?ba=BPA&start_at=2016-02-23&freq=5m&market=RT5M", headers={'Authorization': "Token #{ENV['WATT_TIME_TOKEN']}"})
@@ -31,7 +30,6 @@ class MapsController < ApplicationController
 
   def map_test
     gon.stations = Station.all
-    gon.coordinates =
   end
 
   def get_balancing_authority(lat,long)
@@ -39,7 +37,7 @@ class MapsController < ApplicationController
     @name = response[0]["name"]
   end
 
-  def get_abbrev_by_location(lat,long)
+  def get_ba(lat,long)
     response = HTTParty.get("https://api.watttime.org/api/v1/balancing_authorities/?loc={'type':'Point','coordinates':[#{lat},#{long}]}")
     abbrev = response[0]["abbrev"]
   end

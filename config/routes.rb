@@ -10,5 +10,5 @@ Rails.application.routes.draw do
   get 'graph_test' => 'maps#graph_test'
   get 'map_test' => 'maps#map_test'
   get 'about' => 'maps#about'
-
+  get 'get_ba' => 'maps#get_ba'
 end

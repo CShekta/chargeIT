@@ -1,29 +1,39 @@
-<h1> Map Goes Here</h1>
+<div id="map"></div>
 
-<% content_for :head do %>
-  hello
-<% end %>
-    <!-- <iframe src="http://openchargemap.org/app/?mode=embedded" width="800" height="600"></iframe> -->
-<!-- <div>
-  <h3>Watt Time Data</h3>
-  <p>name: <%= @name %></p>
-  <p>carbon: <%= @carbon %></p>
-  <ol>
-    <% @response.each do |d| %>
-      <li>
-        <%= d["timestamp"] %> <%= d["carbon"] %>
-      </li>
-    <% end %>
-  </ol>
-<hr/>
-<%= @response %>
+<script>
 
-</div> -->
+var map = L.map('map')
+
+map.locate({setView: true, maxZoom: 14});
+
+L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
+    attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a>',
+    maxZoom: 18,
+    id: 'mapbox.emerald',
+    accessToken: 'pk.eyJ1Ijoic2hla3RhYmVhciIsImEiOiJjaWw2MG1jbnMwMDVmdWhsdmlqMXBtbDNvIn0.j9O4rlghTMC3oEEGHFSbuQ'
+}).addTo(map);
+
+var stations = gon.stations;
+
+stations.forEach(function(station) {
+  L.marker([station.lat, station.long]).addTo(map)
+      .bindPopup('<h5>' + station.name + '</h5><br /><p>This is a nice popup.</p>')
+      .openPopup()
+      .on('click', onClick);
+});
+var popup = L.popup();
+
+function onClick(e) {
+  var coordinates = e.latlng;
+  // var url = "http://localhost:3000/get_ba"
+}
+
+</script>
 
 <span id="carbon">
 
 </span>
-<%= data = raw(@response.to_json) %>;
+<% data = raw(@response.to_json) %>;
 
 <%= metrics_graphic_for JSON.parse(data), target: '#carbon', title: "Carbon Emission (lb per MW)", description: "This graphic shows a time-series of carbon.", width: 600, height: 250, x_accessor: 'timestamp', y_accessor: 'carbon', time_format: '%Y-%m-%dT%H:%M:%SZ'
  %>
