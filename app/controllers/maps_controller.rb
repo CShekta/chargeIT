@@ -27,7 +27,7 @@ class MapsController < ApplicationController
   end
 
   def map_test
-    gon.stations = Station.all
+    @response = HTTParty.get("http://api.openchargemap.io/v2/poi/?output=json&countrycode=US&maxresults=10")
   end
 
   # response = HTTParty.get("#{BASE_URI}/datapoints/?ba=BPA&start_at=#{start_time}&market=RT5M", headers={'Authorization': "Token #{ENV['WATT_TIME_TOKEN']}"})

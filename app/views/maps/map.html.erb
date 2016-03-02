@@ -25,7 +25,6 @@ var popup = L.popup();
 
 function onClick(e) {
   var coordinates = e.latlng;
-  console.log(coordinates.lat)
   var url = "http://localhost:3000//get_fuel_data"
   $.ajax({
     url: url,
@@ -35,20 +34,21 @@ function onClick(e) {
     },
     type: "GET",
     success: function(response) {
-      console.log("you're ok")
+      console.log("you're ok");
+      $("#graphics").reload();
     },
     error: function() {
-      console.log("I hate you")
+      console.log("I hate you");
     }
 });
 }
 
 </script>
 
-<div id="carbon">
+<div id="graphics">
+  <div id="carbon"></div>
+  <% data = raw(@response.to_json) %>
 
+  <%= metrics_graphic_for JSON.parse(data), target: '#carbon', title: "Carbon Emission (lb per MW)", description: "This graphic shows a time-series of carbon.", width: 600, height: 250, x_accessor: 'timestamp', y_accessor: 'carbon', time_format: '%Y-%m-%dT%H:%M:%SZ'
+   %>
 </div>
-<% data = raw(@response.to_json) %>
-
-<%= metrics_graphic_for JSON.parse(data), target: '#carbon', title: "Carbon Emission (lb per MW)", description: "This graphic shows a time-series of carbon.", width: 600, height: 250, x_accessor: 'timestamp', y_accessor: 'carbon', time_format: '%Y-%m-%dT%H:%M:%SZ'
- %>
