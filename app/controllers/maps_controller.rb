@@ -27,7 +27,17 @@ class MapsController < ApplicationController
   end
 
   def map_test
-    @response = HTTParty.get("http://api.openchargemap.io/v2/poi/?output=json&countrycode=US&maxresults=10")
+    # @response = HTTParty.get("http://api.openchargemap.io/v2/poi/?output=json&countrycode=US&opendata=true&maxresults=10000")
+    # @response.each do |station|
+    #   Station.create(
+    #     ev_id: station["ID"],
+    #     lat: station["AddressInfo"]["Latitude"],
+    #     long: station["AddressInfo"]["Longitude"],
+    #     usage_cost: station["UsageCost"],
+    #     phone: station["AddressInfo"]["ContactTelephone1"],
+    #     comments: station["GeneralComments"],
+    #   )
+    # end
   end
 
   # response = HTTParty.get("#{BASE_URI}/datapoints/?ba=BPA&start_at=#{start_time}&market=RT5M", headers={'Authorization': "Token #{ENV['WATT_TIME_TOKEN']}"})
