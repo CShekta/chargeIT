@@ -69,12 +69,10 @@
             long: data[i].long
           };
 
-          var popup = L.popup();
-
+// marker.bindPopup(popupContent).openPopup();
           var stationMarker = new L.marker([stationData.lat, stationData.long], {
-          }).addTo(leaflet_map)
-            .bindPopup('<h5>' + stationData.id + '</h5><br /><p>This is a nice popup.</p>')
-            .openPopup();
+          }).addTo(leaflet_map);
+          stationMarker.bindPopup('<h5>' + stationData.id + '</h5><br /><p>This is a nice popup.</p>').openPopup();
         }
       }
     }

@@ -41,6 +41,9 @@ gem "d3-rails"
 gem 'metrics-graphics-rails'
 
 gem 'gon'
+
+gem 'geocoder'
+
 # Use Unicorn as the app server
 # gem 'unicorn'
 

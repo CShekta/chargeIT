@@ -78,7 +78,7 @@ class MapsController < ApplicationController
   def query_data
     start_time = (Time.now - 2.day).strftime("%Y-%m-%d")
     if !params[:lat]
-      ba = "BPA"
+      # ba = 
     else
       ba = get_ba(params[:lat].to_s, params[:long].to_s)
     end
