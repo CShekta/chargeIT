@@ -12,7 +12,8 @@ class MapsController < ApplicationController
     # ba = get_ba(params[:lat], params[:lng])
     #
     # response = HTTParty.get("https://api.watttime.org:443/api/v1/datapoints/?ba=#{ba}&page_size=1", headers={'Authorization': "Token #{ENV['WATT_TIME_TOKEN']}"})
-    @response = query_data
+
+    # @response = query_data
 
     # response = HTTParty.get("#{BASE_URI}/datapoints/?ba=BPA&start_at=#{start_time}&market=RT5M", headers={'Authorization': "Token #{ENV['WATT_TIME_TOKEN']}"})
     # @response = response["results"]
@@ -24,12 +25,9 @@ class MapsController < ApplicationController
     sw_lng = params[:swLng]
     ne_lat = params[:neLat]
     ne_lng = params[:neLng]
-    stations = Station.where( 'latitude >= ' + sw_lat +
-      ' AND latitude <= '  + ne_lat +
-      ' AND longitude >= ' + sw_lng +
-      ' AND longitude <= ' + ne_lng )
-
+    stations = Station.where( 'lat >= ' + sw_lat + ' AND lat <= ' + ne_lat + ' AND long >= ' + ne_lng + ' AND long <= ' + sw_lng)
     elements = []
+
     stations.each do |station|
       station_hash =
       {
@@ -37,7 +35,7 @@ class MapsController < ApplicationController
         lat: station.lat,
         long: station.long,
       }
-      elements << loc_hash
+      elements << station_hash
     end
     render json: { data: elements, status: 200 }.as_json
 

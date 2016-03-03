@@ -11,4 +11,5 @@ Rails.application.routes.draw do
   get 'map_test' => 'maps#map_test'
   get 'about' => 'maps#about'
   get 'get_fuel_data' => 'maps#get_fuel_data'
+  get 'map_stations' => 'maps#stations'
 end
