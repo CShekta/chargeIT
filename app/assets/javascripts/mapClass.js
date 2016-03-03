@@ -44,7 +44,6 @@
         map.getBounds()._northEast.lat,
         map.getBounds()._northEast.lng
       ];
-      console.log(map.getBounds())
 
       this.bounds = bounds;
       this.getStationsFromDB(map);
@@ -53,7 +52,6 @@
     getStationsFromDB: function(leaflet_map) {
       // Query db for these bounds
       var this_map = this;
-      console.log(this.bounds)
       var bounds = { swLat: this.bounds[0], swLng: this.bounds[1], neLat: this.bounds[2], neLng: this.bounds[3] };
 
       $.get( "/map_stations", bounds, function(stationData) {

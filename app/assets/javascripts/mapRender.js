@@ -11,15 +11,7 @@ if ($("#map")) {
     map.loadMap( function(result) {
       // Populate markers on zoom or move.
       result.on('zoomend, moveend', function(event) {
-        var zoom = result.getZoom();
-        if (zoom > 11) {
           map.findBounds(map.charge_map);
-        } else {
-          // setTimeout(function() {
-          //   $('.css-icon').remove();
-          //   showAlert(alertContent.zoomAlert);
-          // }, 250);
-        }
       });
     });
 

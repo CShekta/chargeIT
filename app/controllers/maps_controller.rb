@@ -25,7 +25,7 @@ class MapsController < ApplicationController
     sw_lng = params[:swLng]
     ne_lat = params[:neLat]
     ne_lng = params[:neLng]
-    stations = Station.where( 'lat >= ' + sw_lat + ' AND lat <= ' + ne_lat + ' AND long >= ' + ne_lng + ' AND long <= ' + sw_lng)
+    stations = Station.where( 'lat >= ' + sw_lat + ' AND lat <= ' + ne_lat + ' AND long <= ' + ne_lng + ' AND long >= ' + sw_lng)
     elements = []
 
     stations.each do |station|
@@ -55,6 +55,12 @@ class MapsController < ApplicationController
     #     ev_id: station["ID"],
     #     lat: station["AddressInfo"]["Latitude"],
     #     long: station["AddressInfo"]["Longitude"],
+    #     title: station["AddressInfo"]["Title"],
+    #     address_line1: station["AddressInfo"]["AddressLine1"],
+    #     address_line2: station["AddressInfo"]["AddressLine2"],
+    #     city: station["AddressInfo"]["Town"],
+    #     state: station["AddressInfo"]["StateOrProvince"],
+    #     zip: station["AddressInfo"]["Postcode"],
     #     usage_cost: station["UsageCost"],
     #     phone: station["AddressInfo"]["ContactTelephone1"],
     #     comments: station["GeneralComments"],
