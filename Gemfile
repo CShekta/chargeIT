@@ -42,7 +42,7 @@ gem 'metrics-graphics-rails'
 
 gem 'gon'
 
-gem 'geocoder'
+gem 'area'
 
 # Use Unicorn as the app server
 # gem 'unicorn'
