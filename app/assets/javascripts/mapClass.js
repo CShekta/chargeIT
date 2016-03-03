@@ -17,11 +17,7 @@
       L.accessToken = this.mapboxPk;
 
       var new_map = L.map('map', {
-        center: [47.624585, -122.325606],
-        zoom: 14
       });
-
-      new_map.locate({setView: true, maxZoom: 14});
 
       L.tileLayer(this.mapLayer, {
         attribution: this.attribution,
@@ -30,6 +26,8 @@
       }).addTo(new_map);
 
       this.charge_map = new_map;
+
+      new_map.locate({setView: true, maxZoom: 14});
 
 
       this.findBounds(new_map);
