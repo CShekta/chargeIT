@@ -18,7 +18,7 @@
 
       var new_map = L.map('map', {
       });
-
+// .setView([47.667707, -122.313108])
       L.tileLayer(this.mapLayer, {
         attribution: this.attribution,
         id: this.mapboxid,
@@ -29,8 +29,6 @@
 
       new_map.locate({setView: true, maxZoom: 14});
 
-
-      this.findBounds(new_map);
       callback(new_map);
     },
 

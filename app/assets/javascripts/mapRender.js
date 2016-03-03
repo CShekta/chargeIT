@@ -9,8 +9,9 @@ if ($("#map")) {
     });
 
     map.loadMap( function(result) {
+
       // Populate markers on zoom or move.
-      result.on('zoomend, moveend', function(event) {
+      result.on('zoomend viewreset dragend locationfound', function(event) {
           map.findBounds(map.charge_map);
       });
     });
