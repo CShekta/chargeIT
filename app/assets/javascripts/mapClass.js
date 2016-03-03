@@ -5,7 +5,6 @@
     this.mapboxPk = options.mapboxPk;
     this.mapboxid = options.mapboxid;
     this.maxZoom = options.maxZoom;
-    this.startZoom = options.startZoom;
     this.mapLayer = options.mapLayer;
     this.attribution = options.attribution;
     this.charge_map;
@@ -41,21 +40,21 @@
         map.getBounds()._northEast.lng
       ];
       this.bounds = bounds;
-      this.getNodesFromDB(map);
+      this.getStationsFromDB(map);
     },
 
-    getNodesFromDB: function(leaflet_map) {
+    getStationsFromDB: function(leaflet_map) {
       // Query db for these bounds
       var this_map = this;
       var bounds = { swLat: this.bounds[0], swLng: this.bounds[1], neLat: this.bounds[2], neLng: this.bounds[3] };
       $.get( "/map/stations", bounds, function(stationData) {
           // populate station markers using DB info
-          this_map.createNodeMarkers(leaflet_map, stationData.data);
+          this_map.createStationMarkers(leaflet_map, stationData.data);
         }, 'json'
       );
     },
 
-    createNodeMarkers: function(leaflet_map, data) {
+    createStationMarkers: function(leaflet_map, data) {
       // create clickable markers for each station in bounds
 
       for (var i = 0; i < data.length; i++) {
@@ -66,6 +65,8 @@
             lat: data[i].lat,
             long: data[i].long
           };
+
+          var popup = L.popup();
 
           var stationMarker = new L.marker([stationData.lat, stationData.long], {
           }).addTo(leaflet_map)

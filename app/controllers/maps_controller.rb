@@ -33,7 +33,7 @@ class MapsController < ApplicationController
     stations.each do |station|
       station_hash =
       {
-        id: station.ev_id,
+        id: station.id,
         lat: station.lat,
         long: station.long,
       }
