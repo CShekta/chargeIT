@@ -19,6 +19,30 @@ class MapsController < ApplicationController
 
   end
 
+  def stations
+    sw_lat = params[:swLat]
+    sw_lng = params[:swLng]
+    ne_lat = params[:neLat]
+    ne_lng = params[:neLng]
+    stations = Station.where( 'latitude >= ' + sw_lat +
+      ' AND latitude <= '  + ne_lat +
+      ' AND longitude >= ' + sw_lng +
+      ' AND longitude <= ' + ne_lng )
+
+    elements = []
+    stations.each do |station|
+      station_hash =
+      {
+        id: station.ev_id,
+        lat: station.lat,
+        long: station.long,
+      }
+      elements << loc_hash
+    end
+    render json: { data: elements, status: 200 }.as_json
+
+  end
+
   def about; end
 
   def graph_test

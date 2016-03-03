@@ -35,7 +35,7 @@ function onClick(e) {
     type: "GET",
     success: function(response) {
       console.log("you're ok");
-      $("#graphics").reload();
+      $("#graphics").load();
     },
     error: function() {
       console.log("I hate you");
