@@ -29,6 +29,12 @@ class MapsController < ApplicationController
         id: station.id,
         lat: station.lat,
         long: station.long,
+        title: station.title,
+        address_line1: station.address_line1,
+        address_line2: station.address_line2,
+        usage_cost: station.usage_cost,
+        phone: station.phone,
+        comments: station.comments,
       }
       elements << station_hash
     end

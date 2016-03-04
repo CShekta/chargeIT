@@ -66,13 +66,19 @@
           var stationData = {
             id: data[i].id,
             lat: data[i].lat,
-            long: data[i].long
+            long: data[i].long,
+            title: data[i].title,
+            address_line1: data[i].address_line1,
+            address_line2: data[i].address_line2,
+            usage_cost: data[i].usage_cost,
+            phone: data[i].phone,
+            comments: data[i].comments,
           };
 
 // marker.bindPopup(popupContent).openPopup();
           var stationMarker = new L.marker([stationData.lat, stationData.long], {
           }).addTo(leaflet_map);
-          stationMarker.bindPopup('<h5>' + stationData.id + '</h5><br /><p>This is a nice popup.</p>');
+          stationMarker.bindPopup('<h5>' + stationData.title + '</h5><br>' + stationData.address_line1 + '<br>Cost: ' + stationData.usage_cost + '<br>Contact Number: ' + stationData.phone + '<br>Comments:  '+ stationData.comments);
         }
       }
     }
