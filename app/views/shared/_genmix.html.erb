@@ -237,7 +237,7 @@ function dashboard(id, fData){
 
 <script>
 
-var genmixData = <%= raw(@response.to_json) %>
+var genmixData = <%= raw(@energy_data.to_json) %>
 genmixData.forEach(function(d) {
   d.fuels = {};
   d.genmix.forEach(function(d2) {

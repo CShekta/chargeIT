@@ -1,17 +1,16 @@
 require 'pry'
 class MapsController < ApplicationController
   include HTTParty
-  LAT = -122.272778
-  LONG = 37.871667
   BASE_URI = "https://api.watttime.org:443/api/v1"
+  current_ba = nil   #the balancing authority previously called
+  watttime_calltime = nil  #the time watttime api was just called
+  ev_calltime = nil  #the time when openchargemap was previously called
 
   def map
-    start_time = (Time.now - 2.day).strftime("%Y-%m-%d")
+    @energy_data = query_data
 
-    @response = query_data
-
-    # response = HTTParty.get("#{BASE_URI}/datapoints/?ba=BPA&start_at=#{start_time}&market=RT5M", headers={'Authorization': "Token #{ENV['WATT_TIME_TOKEN']}"})
-    # @response = response["results"]
+    # energy_data = HTTParty.get("#{BASE_URI}/datapoints/?ba=BPA&start_at=#{start_time}&market=RT5M", headers={'Authorization': "Token #{ENV['WATT_TIME_TOKEN']}"})
+    # @energy_data = energy_data["results"]
 
   end
 
@@ -45,13 +44,13 @@ class MapsController < ApplicationController
   def about; end
 
   def graph_test
-    response = HTTParty.get("#{BASE_URI}/datapoints/?ba=BPA&start_at=2016-02-27&market=RT5M", headers={'Authorization': "Token #{ENV['WATT_TIME_TOKEN']}"})
-    @response = response["results"]
+    energy_data = HTTParty.get("#{BASE_URI}/datapoints/?ba=BPA&start_at=2016-02-27&market=RT5M", headers={'Authorization': "Token #{ENV['WATT_TIME_TOKEN']}"})
+    @energy_data = energy_data["results"]
   end
 
   def map_test
-    # @response = HTTParty.get("http://api.openchargemap.io/v2/poi/?output=json&countrycode=US&opendata=true&maxresults=10000")
-    # @response.each do |station|
+    # @stations = HTTParty.get("http://api.openchargemap.io/v2/poi/?output=json&countrycode=US&opendata=true&maxresults=10000")
+    # @stations.each do |station|
     #   Station.create(
     #     ev_id: station["ID"],
     #     lat: station["AddressInfo"]["Latitude"],
@@ -69,8 +68,6 @@ class MapsController < ApplicationController
     # end
   end
 
-  # response = HTTParty.get("#{BASE_URI}/datapoints/?ba=BPA&start_at=#{start_time}&market=RT5M", headers={'Authorization': "Token #{ENV['WATT_TIME_TOKEN']}"})
-  # response = response["results"]
 
   def get_fuel_data
     render json: query_data, status: 200
@@ -85,18 +82,18 @@ class MapsController < ApplicationController
     else
       ba = get_ba(params[:lat].to_s, params[:long].to_s)
     end
-    response = HTTParty.get("#{BASE_URI}/datapoints/?ba=#{ba}&start_at=#{start_time}&market=RT5M", headers={'Authorization': "Token #{ENV['WATT_TIME_TOKEN']}"})
-    response = response["results"]
+    energy_data = HTTParty.get("#{BASE_URI}/datapoints/?ba=#{ba}&start_at=#{start_time}&market=RT5M", headers={'Authorization': "Token #{ENV['WATT_TIME_TOKEN']}"})
+    energy_data = energy_data["results"]
   end
 
   # def get_balancing_authority(lat,long)
-  #   response = HTTParty.get("#{BASE_URI}/balancing_authorities/?loc={'type':'Point','coordinates':[#{lat},#{long}]}")
-  #   @name = response[0]["name"]
+  #   balancing_authority = HTTParty.get("#{BASE_URI}/balancing_authorities/?loc={'type':'Point','coordinates':[#{lat},#{long}]}")
+  #   balancing_authority_name = balancing_authority[0]["name"]
   # end
 
   def get_ba(lat,long)
     query = "#{BASE_URI}/balancing_authorities/?loc={'type':'Point','coordinates':[#{long},#{lat}]}"
-    response = HTTParty.get(query)
-    abbrev = response[0]["abbrev"]
+    balancing_authority = HTTParty.get(query)
+    ba = balancing_authority[0]["abbrev"]
   end
 end

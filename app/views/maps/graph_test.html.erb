@@ -1,8 +1,8 @@
 <!-- <ol>
-  <% @response.each do |response| %>
-  <li><%= response["timestamp"].to_date %></li>
+  <% @energy_data.each do |energy_data| %>
+  <li><%= energy_data["timestamp"].to_date %></li>
     <ul>
-      <% response["genmix"].each do |option| %>
+      <% energy_data["genmix"].each do |option| %>
         <li><%= option["fuel"] %> : <%= option["gen_MW"] %></li>
       <% end %>
     </ul>
@@ -11,7 +11,7 @@
 
 <div id="graphics">
   <div id="carbon"></div>
-  <% data = raw(@response.to_json) %>
+  <% data = raw(@energy_data.to_json) %>
 
   <%= metrics_graphic_for JSON.parse(data), target: '#carbon', title: "Carbon Emission", description: "This graphic shows a time-series of carbon.", width: 600, height: 250, x_accessor: 'timestamp', y_accessor: 'carbon', time_format: '%Y-%m-%dT%H:%M:%SZ'
    %>
@@ -268,7 +268,7 @@ var freqData=[
 ,{State:'KS',freq:{low:162, mid:379, high:471}}
 ];
 
-var genmixData = <%= raw(@response.to_json) %>
+var genmixData = <%= raw(@energy_data.to_json) %>
 genmixData.forEach(function(d) {
   d.fuels = {};
   d.genmix.forEach(function(d2) {

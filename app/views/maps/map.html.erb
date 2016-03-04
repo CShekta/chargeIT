@@ -9,10 +9,13 @@
 
   <div class="tab-content">
     <div id="carbon" class="tab-pane fade in active">
+      <h3>Carbon Emissions</h3>
+      <p>This shows the real time emission of carbon from your local power grid measure in pounds of carbon per megawatt of electricity produced.</p>
       <%= render partial: "shared/carbon" %>
     </div>
     <div id="genmix" class="tab-pane fade">
       <h3>Mixture Of Fuels</h3>
+      <p>Each local power grid has its own combination of fuel sources. These fuels make up variable percentages of total energy produced based on the time of day, weather, power demand, and other factors.</p>
       <%= render partial: "shared/genmix" %>
     </div>
     <div id="about" class="tab-pane fade">

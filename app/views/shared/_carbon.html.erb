@@ -1,5 +1,5 @@
 <div id="carbon"></div>
-<% data = raw(@response.to_json) %>
+<% energy_data = raw(@energy_data.to_json) %>
 
-<%= metrics_graphic_for JSON.parse(data), target: '#carbon', title: "Carbon Emission", description: "This graphic shows a time-series of carbon.", width: 600, height: 250, x_accessor: 'timestamp', y_accessor: 'carbon', time_format: '%Y-%m-%dT%H:%M:%SZ'
+<%= metrics_graphic_for JSON.parse(energy_data), target: '#carbon', title: "", description: "This graphic shows a time-series of carbon.", width: 600, height: 250, x_accessor: 'timestamp', y_accessor: 'carbon', time_format: '%Y-%m-%dT%H:%M:%SZ'
  %>
