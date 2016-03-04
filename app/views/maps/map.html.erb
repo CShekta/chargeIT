@@ -1,1 +1,23 @@
 <div id="map"></div>
+
+<div class="container">
+  <ul class="nav nav-tabs">
+    <li class="active"><a data-toggle="tab" href="#carbon">Carbon Emissions</a></li>
+    <li><a data-toggle="tab" href="#genmix">Fuel Mix</a></li>
+    <li><a data-toggle="tab" href="#about">More Info</a></li>
+  </ul>
+
+  <div class="tab-content">
+    <div id="carbon" class="tab-pane fade in active">
+      <%= render partial: "shared/carbon" %>
+    </div>
+    <div id="genmix" class="tab-pane fade">
+      <h3>Mixture Of Fuels</h3>
+      <%= render partial: "shared/genmix" %>
+    </div>
+    <div id="about" class="tab-pane fade">
+      <h3>Menu 2</h3>
+      <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.</p>
+    </div>
+  </div>
+</div>

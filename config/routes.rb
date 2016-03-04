@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get '/' => 'maps#map'
   resources :users, :only => [:create, :show]
   get 'signup' => 'users#new', :as => 'signup'
 
@@ -12,4 +13,5 @@ Rails.application.routes.draw do
   get 'about' => 'maps#about'
   get 'get_fuel_data' => 'maps#get_fuel_data'
   get 'map_stations' => 'maps#stations'
+
 end

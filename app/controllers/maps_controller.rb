@@ -6,14 +6,9 @@ class MapsController < ApplicationController
   BASE_URI = "https://api.watttime.org:443/api/v1"
 
   def map
-    gon.stations = Station.all
     start_time = (Time.now - 2.day).strftime("%Y-%m-%d")
 
-    # ba = get_ba(params[:lat], params[:lng])
-    #
-    # response = HTTParty.get("https://api.watttime.org:443/api/v1/datapoints/?ba=#{ba}&page_size=1", headers={'Authorization': "Token #{ENV['WATT_TIME_TOKEN']}"})
-
-    # @response = query_data
+    @response = query_data
 
     # response = HTTParty.get("#{BASE_URI}/datapoints/?ba=BPA&start_at=#{start_time}&market=RT5M", headers={'Authorization': "Token #{ENV['WATT_TIME_TOKEN']}"})
     # @response = response["results"]
@@ -77,8 +72,10 @@ class MapsController < ApplicationController
 
   def query_data
     start_time = (Time.now - 2.day).strftime("%Y-%m-%d")
-    if !params[:lat]
-      # ba = 
+    if !params[:lat] && @current_user
+      ba = get_ba(@current_user.latitude, @current_user.longitude)
+    elsif !@current_user
+      ba = "BPA"
     else
       ba = get_ba(params[:lat].to_s, params[:long].to_s)
     end
