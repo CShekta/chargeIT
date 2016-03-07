@@ -40,9 +40,9 @@ gem "d3-rails"
 
 gem 'metrics-graphics-rails'
 
-gem 'gon'
-
 gem 'area'
+
+gem 'twilio-ruby', '~> 3.12'
 
 # Use Unicorn as the app server
 # gem 'unicorn'
