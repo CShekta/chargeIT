@@ -14,11 +14,15 @@
 
   Map.prototype = {
     loadMap: function(callback) {
-      L.accessToken = this.mapboxPk;
+      L.mapbox.accessToken = this.mapboxPk;
 
-      var new_map = L.map('map', {
+      // var new_map = L.map('map',{
+      // });
+
+      var new_map = L.mapbox.map('map', 'mapbox.streets', {
+        zoomControl: false
       });
-// .setView([47.667707, -122.313108])
+
       L.tileLayer(this.mapLayer, {
         attribution: this.attribution,
         id: this.mapboxid,

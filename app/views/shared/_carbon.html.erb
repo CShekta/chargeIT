@@ -1,7 +1,9 @@
 <div id="carbon"></div>
+
+
 <% energy_data = raw(@energy_data.to_json) %>
 
-<!-- <% if @energy_data.empty? %>
+<% if @energy_data.empty? %>
   <script>
     MG.data_graphic({
       title: "Missing Data",
@@ -16,4 +18,4 @@
   </script>
 <% else %>
   <%= metrics_graphic_for JSON.parse(energy_data), target: '#carbon', title: "", description: "This graphic shows a time-series of carbon.", width: 600, height: 250, x_accessor: 'timestamp', y_accessor: 'carbon', time_format: '%Y-%m-%dT%H:%M:%SZ'%>
-<% end %> -->
+<% end %>
