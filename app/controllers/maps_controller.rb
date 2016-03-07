@@ -1,17 +1,23 @@
 require 'pry'
 class MapsController < ApplicationController
   include HTTParty
+  include WattTimeWrapper
+
   BASE_URI = "https://api.watttime.org:443/api/v1"
-  current_ba = nil   #the balancing authority previously called
-  watttime_calltime = nil  #the time watttime api was just called
-  ev_calltime = nil  #the time when openchargemap was previously called
+  @@latest_ba ||= nil   #the balancing authority previously called
+  @@watttime_calltime ||= nil  #the time watttime api was just called
+  @@latest_energy_data ||= nil
+  @@latest_ev_calltime ||= nil  #the time when openchargemap was previously called
 
   def map
-    @energy_data = query_data
-
-    # energy_data = HTTParty.get("#{BASE_URI}/datapoints/?ba=BPA&start_at=#{start_time}&market=RT5M", headers={'Authorization': "Token #{ENV['WATT_TIME_TOKEN']}"})
-    # @energy_data = energy_data["results"]
-
+    #update station database if needed
+    # if @@latest_ev_calltime.nil? || @@latest_ev_calltime < Time.now - 2.weeks
+    #   @@latest_ev_calltime = Time.now - 2.weeks
+    #   call_for_charging_stations(@@latest_ev_calltime)
+    #   @@latest_ev_calltime = Time.now
+    # end
+    #get energy data from watt time
+    # @energy_data = query_data
   end
 
   def stations
@@ -38,7 +44,6 @@ class MapsController < ApplicationController
       elements << station_hash
     end
     render json: { data: elements, status: 200 }.as_json
-
   end
 
   def about; end
@@ -48,24 +53,23 @@ class MapsController < ApplicationController
     @energy_data = energy_data["results"]
   end
 
-  def map_test
-    # @stations = HTTParty.get("http://api.openchargemap.io/v2/poi/?output=json&countrycode=US&opendata=true&maxresults=10000")
-    # @stations.each do |station|
-    #   Station.create(
-    #     ev_id: station["ID"],
-    #     lat: station["AddressInfo"]["Latitude"],
-    #     long: station["AddressInfo"]["Longitude"],
-    #     title: station["AddressInfo"]["Title"],
-    #     address_line1: station["AddressInfo"]["AddressLine1"],
-    #     address_line2: station["AddressInfo"]["AddressLine2"],
-    #     city: station["AddressInfo"]["Town"],
-    #     state: station["AddressInfo"]["StateOrProvince"],
-    #     zip: station["AddressInfo"]["Postcode"],
-    #     usage_cost: station["UsageCost"],
-    #     phone: station["AddressInfo"]["ContactTelephone1"],
-    #     comments: station["GeneralComments"],
-    #   )
-    # end
+  def call_for_charging_stations(modified_since)
+    @stations = HTTParty.get("http://api.openchargemap.io/v2/poi/?output=json&countrycode=US&opendata=true&modifiedsince=#{modified_since}&maxresults=10000")
+    @stations.each do |station|
+      Station.where('ev_id = ?', station["ID"]).update(
+        lat: station["AddressInfo"]["Latitude"],
+        long: station["AddressInfo"]["Longitude"],
+        title: station["AddressInfo"]["Title"],
+        address_line1: station["AddressInfo"]["AddressLine1"],
+        address_line2: station["AddressInfo"]["AddressLine2"],
+        city: station["AddressInfo"]["Town"],
+        state: station["AddressInfo"]["StateOrProvince"],
+        zip: station["AddressInfo"]["Postcode"],
+        usage_cost: station["UsageCost"],
+        phone: station["AddressInfo"]["ContactTelephone1"],
+        comments: station["GeneralComments"],
+      )
+    end
   end
 
 
@@ -75,21 +79,26 @@ class MapsController < ApplicationController
 
   def query_data
     start_time = (Time.now - 2.day).strftime("%Y-%m-%d")
-    if !params[:lat] && @current_user
-      ba = get_ba(@current_user.latitude, @current_user.longitude)
-    elsif !@current_user
-      ba = "BPA"
-    else
+
+    if !params[:lat] && current_user #the user logged in but hasn't used the map yet
+      # ba = get_ba(current_user.latitude, current_user.longitude)
+      ba = "CAISO"
+    else #use the coordinates from the map click
       ba = get_ba(params[:lat].to_s, params[:long].to_s)
     end
-    energy_data = HTTParty.get("#{BASE_URI}/datapoints/?ba=#{ba}&start_at=#{start_time}&market=RT5M", headers={'Authorization': "Token #{ENV['WATT_TIME_TOKEN']}"})
-    energy_data = energy_data["results"]
+    if @@latest_ba == ba && @@watttime_calltime < Time.now - 15.min #user is requesting info from the same ba
+      return @@latest_energy_data
+    else
+      energy_data = HTTParty.get("#{BASE_URI}/datapoints/?ba=#{ba}&start_at=#{start_time}&market=RT5M", headers={'Authorization': "Token #{ENV['WATT_TIME_TOKEN']}"})
+      @@watttime_calltime = Time.now
+      @@latest_energy_data = energy_data["results"]
+    end
   end
 
-  # def get_balancing_authority(lat,long)
-  #   balancing_authority = HTTParty.get("#{BASE_URI}/balancing_authorities/?loc={'type':'Point','coordinates':[#{lat},#{long}]}")
-  #   balancing_authority_name = balancing_authority[0]["name"]
-  # end
+  def get_balancing_authority(lat,long)
+    balancing_authority = HTTParty.get("#{BASE_URI}/balancing_authorities/?loc={'type':'Point','coordinates':[#{lat},#{long}]}")
+    balancing_authority_name = balancing_authority[0]["name"]
+  end
 
   def get_ba(lat,long)
     query = "#{BASE_URI}/balancing_authorities/?loc={'type':'Point','coordinates':[#{long},#{lat}]}"

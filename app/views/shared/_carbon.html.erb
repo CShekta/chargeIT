@@ -1,5 +1,19 @@
 <div id="carbon"></div>
 <% energy_data = raw(@energy_data.to_json) %>
 
-<%= metrics_graphic_for JSON.parse(energy_data), target: '#carbon', title: "", description: "This graphic shows a time-series of carbon.", width: 600, height: 250, x_accessor: 'timestamp', y_accessor: 'carbon', time_format: '%Y-%m-%dT%H:%M:%SZ'
- %>
+<!-- <% if @energy_data.empty? %>
+  <script>
+    MG.data_graphic({
+      title: "Missing Data",
+      description: "This is an example of a graphic whose data is currently missing. We've also set the error option, which appends an error icon to the title and logs an error to the browser's console.",
+      error: 'This data is blocked by Lorem Ipsum. Get your **** together, Ipsum.',
+      chart_type: 'missing-data',
+      missing_text: 'This is an example of a missing chart',
+      target: '#missing-data',
+      width: 600,
+      height: 200
+    });
+  </script>
+<% else %>
+  <%= metrics_graphic_for JSON.parse(energy_data), target: '#carbon', title: "", description: "This graphic shows a time-series of carbon.", width: 600, height: 250, x_accessor: 'timestamp', y_accessor: 'carbon', time_format: '%Y-%m-%dT%H:%M:%SZ'%>
+<% end %> -->
