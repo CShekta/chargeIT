@@ -19,7 +19,7 @@
       // var new_map = L.map('map',{
       // });
 
-      var new_map = L.mapbox.map('map', 'mapbox.streets', {
+      var new_map = L.mapbox.map('map', {
         zoomControl: false
       });
 

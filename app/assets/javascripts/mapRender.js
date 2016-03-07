@@ -2,7 +2,7 @@ if ($("#map")) {
   $(document).ready(function() {
     var map = new Map({
       mapboxPk: 'pk.eyJ1Ijoic2hla3RhYmVhciIsImEiOiJjaWw2MG1jbnMwMDVmdWhsdmlqMXBtbDNvIn0.j9O4rlghTMC3oEEGHFSbuQ',
-      mapboxid: 'mapbox.emerald',
+      mapboxid: 'shektabear.pbjom020',
       maxZoom: 18,
       mapLayer: 'https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}',
       attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a>'
@@ -14,7 +14,7 @@ if ($("#map")) {
       result.on('zoomend viewreset dragend locationfound', function(event) {
           map.findBounds(map.charge_map);
       });
-      
+
       // create the initial directions object, from which the layer
       // and inputs will pull data.
       var directions = L.mapbox.directions();

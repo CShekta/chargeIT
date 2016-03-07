@@ -44,6 +44,9 @@ gem 'area'
 
 gem 'twilio-ruby', '~> 3.12'
 
+gem 'whenever', :require => false
+
+
 # Use Unicorn as the app server
 # gem 'unicorn'
 
