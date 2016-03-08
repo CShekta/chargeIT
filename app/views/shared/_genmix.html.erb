@@ -49,7 +49,6 @@ function dashboard(id, fData){
   // function to handle histogram.
   function lineGraph(fD){
 
-    console.log(fD);
 
     var margin = {top: 60, right: 0, bottom: 30, left: 0},
     width = 500 - margin.left - margin.right,
@@ -121,12 +120,9 @@ function dashboard(id, fData){
         function mousemove(d) {
 
           // console.log(lineSvg.select("path").data()[0]);
-          console.log(d);
             var x0 = x.invert(d3.mouse(this)[0]),
                 i = bisectDate(d, x0, 1);
-            console.log(d[i]);
             var st = fData.filter(function(s){ return s.timestamp == d[i][0];})[0];
-            console.log(st);
 
             var    nD = d3.keys(st.fuels).map(function(s){ return { type: s, fuels:st.fuels[s]}; });
             pC.update(nD);
@@ -134,8 +130,6 @@ function dashboard(id, fData){
                 // d0 = fD[i - 1],
                 // d1 = fD[i],
                 // d = x0 - d0[0] > d1[0] - x0 ? d1 : d0;
-            console.log(x0);
-            console.log(i);
             // focus.attr("transform", "translate(" + x(d.date) + "," + y(d.close) + ")");
             // focus.select("text").text(formatCurrency(d.close));
         }
@@ -167,8 +161,6 @@ function dashboard(id, fData){
         if(isNaN(d[1])) {
           d[1] = 0;
         }});
-
-      console.log(nD);
 
        // Attach the new data to the bars.
       lineSvg.selectAll("path").datum(nD).transition().duration(500).attr("d",area)
@@ -315,7 +307,6 @@ function dashboard(id, fData){
       d.timestamp = parseDate(d.timestamp);
 
     });
-    console.log(genmixData);
 
     dashboard('#dashboard',genmixData.reverse());
     </script>
