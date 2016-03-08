@@ -78,6 +78,7 @@
           var stationMarker = new L.marker([stationData.lat, stationData.long], {
           }).addTo(leaflet_map);
           stationMarker.bindPopup('<h5>' + stationData.title + '</h5><br>' + stationData.address_line1 + '<br>Cost: ' + stationData.usage_cost + '<br>Contact Number: ' + stationData.phone + '<br>Comments:  '+ stationData.comments);
+          stationMarker.on('click', stationCall);
         }
       }
     }
