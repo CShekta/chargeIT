@@ -650,7 +650,6 @@ class MapsController < ApplicationController
 
 
   def get_fuel_data
-    console.log("what's up")
     render json: query_data, status: 200
   end
 
