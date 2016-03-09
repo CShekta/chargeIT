@@ -8,6 +8,10 @@ class MapsController < ApplicationController
   @@latest_energy_data ||= nil
   @@latest_ev_calltime ||= nil  #the time when openchargemap was previously called
 
+  def letsencrypt
+    render plain: ENV['LE_AUTH_RESPONSE']
+  end
+  
   def map
     #update station database if needed
     # if @@latest_ev_calltime.nil? || @@latest_ev_calltime < Time.now - 2.weeks

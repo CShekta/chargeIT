@@ -16,4 +16,6 @@ Rails.application.routes.draw do
 
   post 'notify' => 'twilio#notify'
 
+  get "/.well-known/acme-challenge/#{ENV['LE_AUTH_REQUEST']}", to: 'welcome#letsencrypt'
+
 end
