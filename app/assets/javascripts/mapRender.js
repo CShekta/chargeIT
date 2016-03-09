@@ -57,25 +57,30 @@ if ($("#map")) {
               map.charge_map.locate();
           };
         }
-        var myLayer = L.mapbox.featureLayer().addTo(map.charge_map);
+        // var myLayer = L.mapbox.featureLayer().addTo(map.charge_map);
 
         // Once we've got a position, zoom and center the map
         // on it, and add a single marker.
         map.charge_map.on('locationfound', function(e) {
             map.charge_map.fitBounds(e.bounds);
 
-            myLayer.setGeoJSON({
-                type: 'Feature',
-                geometry: {
-                    type: 'Point',
-                    coordinates: [e.latlng.lng, e.latlng.lat]
-                },
-                properties: {
-                    'title': 'Here I am!',
-                    'marker-color': '#3CB4D2',
-                    'marker-symbol': 'circle'
-                }
-            });
+            L.circleMarker(e.latlng, {
+              className: 'current-location'
+            })
+            .addTo(map.charge_map)
+
+            // myLayer.setGeoJSON({
+            //     type: 'Feature',
+            //     geometry: {
+            //         type: 'Point',
+            //         coordinates: [e.latlng.lng, e.latlng.lat]
+            //     },
+            //     properties: {
+            //         'title': 'Here I am!',
+            //         'marker-color': '#3CB4D2',
+            //         'marker-symbol': 'circle'
+            //     }
+            // });
 
             // And hide the geolocation button
             // geolocate.parentNode.removeChild(geolocate);
