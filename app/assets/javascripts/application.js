@@ -17,3 +17,13 @@
 //= require_tree .
 //= require d3
 //= require metrics-graphics-rails
+  $( document ).ready(function() {
+    $("#directions").hide();
+    $("#inputs").hide();
+    $("#errors").hide();
+  });
+
+  window.onload = (function(){
+        $(".waiting").hide();
+        $("#map").show();
+      });

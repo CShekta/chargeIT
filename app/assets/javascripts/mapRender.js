@@ -67,23 +67,7 @@ if ($("#map")) {
             L.circleMarker(e.latlng, {
               className: 'current-location'
             })
-            .addTo(map.charge_map)
-
-            // myLayer.setGeoJSON({
-            //     type: 'Feature',
-            //     geometry: {
-            //         type: 'Point',
-            //         coordinates: [e.latlng.lng, e.latlng.lat]
-            //     },
-            //     properties: {
-            //         'title': 'Here I am!',
-            //         'marker-color': '#3CB4D2',
-            //         'marker-symbol': 'circle'
-            //     }
-            // });
-
-            // And hide the geolocation button
-            // geolocate.parentNode.removeChild(geolocate);
+            .addTo(map.charge_map);
         });
 
         // If the user chooses not to allow their location
@@ -93,59 +77,4 @@ if ($("#map")) {
         // });
 
       });
-
-      // // Route to clicked bike node or searched location.
-      // $(document).on( "click", ".css-icon", function(event) {
-      // collectTrash(trashToCollect);
-      // var nodeData = $( this ).data(),
-      //   directions = L.mapbox.directions({
-      //     profile: 'mapbox.cycling'
-      //   }),
-      //   routeFormat = {
-      //     routeStyle: {
-      //       color: '#F60131',
-      //       weight: 7,
-      //       opacity: 0.75,
-      //       className: "route"
-      //     }
-      //   },
-      //   originLatLng = null;
-      //
-      // if ($(".user-location").data()) {
-      //   originLatLng = L.latLng(
-      //     $(".user-location").data().lat, $(".user-location").data().lng
-      //   );
-      //   createRoute();
-      //   map.osm_map.locate( { setView: false, watch: true, maximumAge: 5000, maxZoom: 16 } );
-      // } else if (typeof(marker) !== 'undefined') {
-      //   map.osm_map.stopLocate();
-      //   originLatLng = marker.getLatLng();
-      //   createRoute();
-      // }
-      //
-      // function createRoute() {
-      //   // map.osm_map.locate( { setView: false, watch: true, maximumAge: 5000, maxZoom: 16 } );
-      //
-      //   // Origin is current location OR searched location
-      //   directions.setOrigin(originLatLng);
-      //   // Destination is clicked node
-      //   directions.setDestination(L.latLng(nodeData.latitude, nodeData.longitude));
-      //
-      //   directions.query();
-      //   var directionsLayer = L.mapbox.directions.layer(directions, routeFormat)
-      //     .addTo(map.osm_map);
-      //   var directionsRoutesControl = L.mapbox.directions.routesControl('routes', directions)
-      //     .addTo(map.osm_map);
-      //   var directionsInstructionsControl = L.mapbox.directions.instructionsControl('instructions', directions)
-      //     .addTo(map.osm_map);
-      //
-      //   // Remove layers if another bike node (.css-icon) is clicked
-      //   $(document).on( "click", ".css-icon, .my-location, .find-location", function() {
-      //     map.osm_map.removeLayer(directionsLayer);
-      //     map.osm_map.removeLayer(directionsRoutesControl);
-      //   });
-      //
-      //   showDirectionsIcon();
-      // }
-      // });
     }
