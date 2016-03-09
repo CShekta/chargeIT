@@ -14,11 +14,10 @@
 
   Map.prototype = {
     loadMap: function(callback) {
-      L.accessToken = this.mapboxPk;
+      L.mapbox.accessToken = this.mapboxPk;
 
-      var new_map = L.map('map', {
+      var new_map = L.mapbox.map('map', this.mapboxid, {
       });
-// .setView([47.667707, -122.313108])
       L.tileLayer(this.mapLayer, {
         attribution: this.attribution,
         id: this.mapboxid,
@@ -77,8 +76,14 @@
 
 // marker.bindPopup(popupContent).openPopup();
           var stationMarker = new L.marker([stationData.lat, stationData.long], {
+            icon: L.mapbox.marker.icon({
+              'marker-size': 'small',
+              'marker-symbol': 'fuel',
+              'marker-color': '#fa0'
+            })
           }).addTo(leaflet_map);
           stationMarker.bindPopup('<h5>' + stationData.title + '</h5><br>' + stationData.address_line1 + '<br>Cost: ' + stationData.usage_cost + '<br>Contact Number: ' + stationData.phone + '<br>Comments:  '+ stationData.comments);
+          stationMarker.on('click', stationCall);
         }
       }
     }

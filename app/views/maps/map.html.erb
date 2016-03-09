@@ -1,4 +1,22 @@
-<div id="map"></div>
+<div class="wrapperloading">
+  <div class="loading up"></div>
+  <div class="loading down"></div>
+</div>
+
+<div id="map">
+  <div id='inputs'></div>
+  <div id='errors'></div>
+  <div id='directions'>
+    <div id='routes'></div>
+    <div id='instructions'></div>
+  </div></div>
+
+<div class="directions-icon">
+  <%= button_to "Get Directions" %>
+</div>
+<div class="geolocate">
+  <%= button_to "My Location" %>
+</div>
 
 <div class="container">
   <ul class="nav nav-tabs">
