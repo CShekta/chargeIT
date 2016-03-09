@@ -14,8 +14,6 @@ if ($("#map")) {
         result.on('zoomend viewreset dragend locationfound', function(event) {
             map.findBounds(map.charge_map);
         });
-        //     // move the attribution control out of the way
-        // map.attributionControl.setPosition('bottomleft');
 
         // create the initial directions object, from which the layer
         // and inputs will pull data.
@@ -41,52 +39,108 @@ if ($("#map")) {
 
       $(".directions-icon").click( function() {
         event.preventDefault();
-
         // $(".directions-icon").toggleClass("fa-flip-vertical");
         $("#directions").slideToggle();
         $("#inputs").slideToggle();
         $("#errors").slideToggle();
-});
-    });
-}
+      });
 
-// var map = L.map('map')
-//
-// map.locate({setView: true, maxZoom: 14});
-//
-// L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
-//     attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a>',
-//     maxZoom: 18,
-//     id: 'mapbox.emerald',
-//     accessToken: 'pk.eyJ1Ijoic2hla3RhYmVhciIsImEiOiJjaWw2MG1jbnMwMDVmdWhsdmlqMXBtbDNvIn0.j9O4rlghTMC3oEEGHFSbuQ'
-// }).addTo(map);
-//
-// var stations = gon.stations;
-//
-// stations.forEach(function(station) {
-//   L.marker([station.lat, station.long]).addTo(map)
-//       .bindPopup('<h5>' + station.name + '</h5><br /><p>This is a nice popup.</p>')
-//       .openPopup()
-//       .on('click', onClick);
-// });
-// var popup = L.popup();
-//
-// function onClick(e) {
-//   var coordinates = e.latlng;
-//   var url = "http://localhost:3000//get_fuel_data"
-//   $.ajax({
-//     url: url,
-//     data: {
-//         "lat": coordinates.lat,
-//         "long": coordinates.lng,
-//     },
-//     type: "GET",
-//     success: function(response) {
-//       console.log("you're ok");
-//       $("#graphics").load();
-//     },
-//     error: function() {
-//       console.log("I hate you");
-//     }
-// });
-// }
+        // Find user's current location
+        // var geolocate = document.getElementById('geolocate');
+
+        if (!navigator.geolocation) {
+          geolocate.innerHTML = 'Geolocation is not available';
+        } else {
+          $(".geolocate").click = function (e) {
+              e.preventDefault();
+              e.stopPropagation();
+              map.charge_map.locate();
+          };
+        }
+        var myLayer = L.mapbox.featureLayer().addTo(map.charge_map);
+
+        // Once we've got a position, zoom and center the map
+        // on it, and add a single marker.
+        map.charge_map.on('locationfound', function(e) {
+            map.charge_map.fitBounds(e.bounds);
+
+            myLayer.setGeoJSON({
+                type: 'Feature',
+                geometry: {
+                    type: 'Point',
+                    coordinates: [e.latlng.lng, e.latlng.lat]
+                },
+                properties: {
+                    'title': 'Here I am!',
+                    'marker-color': '#3CB4D2',
+                    'marker-symbol': 'circle'
+                }
+            });
+
+            // And hide the geolocation button
+            // geolocate.parentNode.removeChild(geolocate);
+        });
+
+        // If the user chooses not to allow their location
+        // to be shared, display an error message.
+        // map.on('locationerror', function() {
+        //     geolocate.innerHTML = 'Position could not be found';
+        // });
+
+      });
+
+      // // Route to clicked bike node or searched location.
+      // $(document).on( "click", ".css-icon", function(event) {
+      // collectTrash(trashToCollect);
+      // var nodeData = $( this ).data(),
+      //   directions = L.mapbox.directions({
+      //     profile: 'mapbox.cycling'
+      //   }),
+      //   routeFormat = {
+      //     routeStyle: {
+      //       color: '#F60131',
+      //       weight: 7,
+      //       opacity: 0.75,
+      //       className: "route"
+      //     }
+      //   },
+      //   originLatLng = null;
+      //
+      // if ($(".user-location").data()) {
+      //   originLatLng = L.latLng(
+      //     $(".user-location").data().lat, $(".user-location").data().lng
+      //   );
+      //   createRoute();
+      //   map.osm_map.locate( { setView: false, watch: true, maximumAge: 5000, maxZoom: 16 } );
+      // } else if (typeof(marker) !== 'undefined') {
+      //   map.osm_map.stopLocate();
+      //   originLatLng = marker.getLatLng();
+      //   createRoute();
+      // }
+      //
+      // function createRoute() {
+      //   // map.osm_map.locate( { setView: false, watch: true, maximumAge: 5000, maxZoom: 16 } );
+      //
+      //   // Origin is current location OR searched location
+      //   directions.setOrigin(originLatLng);
+      //   // Destination is clicked node
+      //   directions.setDestination(L.latLng(nodeData.latitude, nodeData.longitude));
+      //
+      //   directions.query();
+      //   var directionsLayer = L.mapbox.directions.layer(directions, routeFormat)
+      //     .addTo(map.osm_map);
+      //   var directionsRoutesControl = L.mapbox.directions.routesControl('routes', directions)
+      //     .addTo(map.osm_map);
+      //   var directionsInstructionsControl = L.mapbox.directions.instructionsControl('instructions', directions)
+      //     .addTo(map.osm_map);
+      //
+      //   // Remove layers if another bike node (.css-icon) is clicked
+      //   $(document).on( "click", ".css-icon, .my-location, .find-location", function() {
+      //     map.osm_map.removeLayer(directionsLayer);
+      //     map.osm_map.removeLayer(directionsRoutesControl);
+      //   });
+      //
+      //   showDirectionsIcon();
+      // }
+      // });
+    }

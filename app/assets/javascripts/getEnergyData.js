@@ -18,13 +18,3 @@ function stationCall(e) {
     }
 });
 }
-
-function toggle(control, element) {
-    if (element.className === 'active') {
-        control.removeFrom(map);
-        element.className = '';
-    } else {
-        control.addTo(map);
-        element.className = 'active';
-    }
-}
