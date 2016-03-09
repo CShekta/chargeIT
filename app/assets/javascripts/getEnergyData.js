@@ -1,6 +1,6 @@
 function stationCall(e) {
   var coordinates = e.latlng;
-  
+
   var url = "http://localhost:3000//get_fuel_data";
   $.ajax({
     url: url,
@@ -17,4 +17,14 @@ function stationCall(e) {
       console.log("I hate you");
     }
 });
+}
+
+function toggle(control, element) {
+    if (element.className === 'active') {
+        control.removeFrom(map);
+        element.className = '';
+    } else {
+        control.addTo(map);
+        element.className = 'active';
+    }
 }
