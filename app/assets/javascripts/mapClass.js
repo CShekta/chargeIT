@@ -79,7 +79,7 @@
             icon: L.mapbox.marker.icon({
               'marker-size': 'small',
               'marker-symbol': 'fuel',
-              'marker-color': '#fa0'
+              'marker-color': '#4167e6'
             })
           }).addTo(leaflet_map);
           stationMarker.bindPopup('<h5>' + stationData.title + '</h5><br>' + stationData.address_line1 + '<br>Cost: ' + stationData.usage_cost + '<br>Contact Number: ' + stationData.phone + '<br>Comments:  '+ stationData.comments);
