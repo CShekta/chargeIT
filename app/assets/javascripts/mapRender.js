@@ -15,6 +15,7 @@ if ($("#map")) {
             map.findBounds(map.charge_map);
         });
 
+
         // create the initial directions object, from which the layer
         // and inputs will pull data.
         var directions = L.mapbox.directions();

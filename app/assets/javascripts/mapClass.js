@@ -18,6 +18,12 @@
 
       var new_map = L.mapbox.map('map', this.mapboxid, {
       });
+      var sidebar = L.control.sidebar('sidebar').addTo(map);
+
+      // var sidebar = L.control.sidebar('sidebar', {
+      //     position: 'left'
+      // });
+
       L.tileLayer(this.mapLayer, {
         attribution: this.attribution,
         id: this.mapboxid,

@@ -1,65 +1,90 @@
-<div id="o-wrapper" class="o-wrapper">
-  <div class="c-buttons">
-    <button id="c-button--slide-left" class="c-button">Slide Left</button>
-  </div>
-  <nav id="c-menu--slide-left" class="c-menu c-menu--slide-left">
-    <button class="c-menu__close">&larr; Close Menu</button>
-    <!-- <ul class="c-menu__items">
-      <li class="c-menu__item"><a href="#" class="c-menu__link">Home</a></li>
-      <li class="c-menu__item"><a href="#" class="c-menu__link">About</a></li>
-      <li class="c-menu__item"><a href="#" class="c-menu__link">Services</a></li>
-      <li class="c-menu__item"><a href="#" class="c-menu__link">Work</a></li>
-      <li class="c-menu__item"><a href="#" class="c-menu__link">Contact</a></li>
-    </ul> -->
-    <div class="container">
-      <ul class="nav nav-tabs nav-stacked">
-        <li class="active"><a data-toggle="tab" href="#carbon">Carbon Emissions</a></li>
-        <li><a data-toggle="tab" href="#genmix">Fuel Mix</a></li>
-        <li><a data-toggle="tab" href="#about">More Info</a></li>
-      </ul>
+<div id="sidebar" class="sidebar collapsed">
+    <!-- Nav tabs -->
+    <div class="sidebar-tabs">
+        <ul role="tablist">
+            <li><a href="#home" role="tab"><i class="fa fa-bars"></i></a></li>
+            <li><a href="#profile" role="tab"><i class="fa fa-user"></i></a></li>
+            <li class="disabled"><a href="#messages" role="tab"><i class="fa fa-envelope"></i></a></li>
+        </ul>
 
-      <div class="tab-content">
-        <div id="carbon" class="tab-pane fade in active">
-          <h3>Carbon Emissions</h3>
-          <p>This shows the real time emission of carbon from your local power grid measure in pounds of carbon per megawatt of electricity produced.</p>
-          <%= render partial: "shared/carbon" %>
-        </div>
-        <div id="genmix" class="tab-pane fade">
-          <h3>Mixture Of Fuels</h3>
-          <p>Each local power grid has its own combination of fuel sources. These fuels make up variable percentages of total energy produced based on the time of day, weather, power demand, and other factors.</p>
-          <%= render partial: "shared/genmix" %>
-        </div>
-        <div id="about" class="tab-pane fade">
-          <h3>Menu 2</h3>
-          <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.</p>
-        </div>
-      </div>
+        <ul role="tablist">
+            <li><a href="#settings" role="tab"><i class="fa fa-gear"></i></a></li>
+        </ul>
     </div>
-  </nav><!-- /c-menu slide-left -->
-  <div id="c-mask" class="c-mask"></div><!-- /c-mask -->
-</div><!-- /o-wrapper -->
 
+    <!-- Tab panes -->
+    <div class="sidebar-content">
+        <div class="sidebar-pane" id="home">
+            <h1 class="sidebar-header">
+                sidebar-v2
+                <span class="sidebar-close"><i class="fa fa-caret-left"></i></span>
+            </h1>
 
-<div class="wrapper">
-  <div class="wrapperloading">
-    <div class="loading up"></div>
-    <div class="loading down"></div>
+            <p>A responsive sidebar for mapping libraries like <a href="http://leafletjs.com/">Leaflet</a> or <a href="http://openlayers.org/">OpenLayers</a>.</p>
+
+            <p class="lorem">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</p>
+
+            <p class="lorem">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</p>
+
+            <p class="lorem">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</p>
+
+            <p class="lorem">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</p>
+        </div>
+
+        <div class="sidebar-pane" id="profile">
+            <h1 class="sidebar-header">Profile<span class="sidebar-close"><i class="fa fa-caret-left"></i></span></h1>
+        </div>
+
+        <div class="sidebar-pane" id="messages">
+            <h1 class="sidebar-header">Messages<span class="sidebar-close"><i class="fa fa-caret-left"></i></span></h1>
+        </div>
+
+        <div class="sidebar-pane" id="settings">
+            <h1 class="sidebar-header">Settings<span class="sidebar-close"><i class="fa fa-caret-left"></i></span></h1>
+        </div>
+    </div>
+</div>
+
+<div class="wrapperloading">
+  <div class="loading up"></div>
+  <div class="loading down"></div>
+</div>
+
+<div id="map" class="sidebar-map">
+  <div id='inputs'></div>
+  <div id='errors'></div>
+  <div id='directions'>
+    <div id='routes'></div>
+    <div id='instructions'></div>
+  </div></div>
+
+<div class="directions-icon">
+  <%= button_to "Get Directions" %>
+</div>
+<div class="geolocate">
+  <%= button_to "My Location" %>
+</div>
+<div class="container">
+  <ul class="nav nav-tabs nav-stacked">
+    <li class="active"><a data-toggle="tab" href="#carbon">Carbon Emissions</a></li>
+    <li><a data-toggle="tab" href="#genmix">Fuel Mix</a></li>
+    <li><a data-toggle="tab" href="#about">More Info</a></li>
+  </ul>
+
+  <div class="tab-content">
+    <div id="carbon" class="tab-pane fade in active">
+      <h3>Carbon Emissions</h3>
+      <p>This shows the real time emission of carbon from your local power grid measure in pounds of carbon per megawatt of electricity produced.</p>
+      <%= render partial: "shared/carbon" %>
+    </div>
+    <div id="genmix" class="tab-pane fade">
+      <h3>Mixture Of Fuels</h3>
+      <p>Each local power grid has its own combination of fuel sources. These fuels make up variable percentages of total energy produced based on the time of day, weather, power demand, and other factors.</p>
+      <%= render partial: "shared/genmix" %>
+    </div>
+    <div id="about" class="tab-pane fade">
+      <h3>Menu 2</h3>
+      <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.</p>
+    </div>
   </div>
-
-  <div id="map">
-    <div id='inputs'></div>
-    <div id='errors'></div>
-    <div id='directions'>
-      <div id='routes'></div>
-      <div id='instructions'></div>
-    </div></div>
-
-  <div class="directions-icon">
-    <%= button_to "Get Directions" %>
-  </div>
-  <div class="geolocate">
-    <%= button_to "My Location" %>
-  </div>
-
-
 </div>
