@@ -57,7 +57,6 @@ height: 500px;
 .c-menu {
   position: fixed;
   z-index: 200;
-  background-color: #33b387;
   transition: transform 0.3s;
 }
 
@@ -131,7 +130,7 @@ body.has-active-menu {
 
 @media all and (min-width: 320px) {
   .c-menu--slide-left {
-    width: 300px;
+    width: 1000px;
   }
 }
 

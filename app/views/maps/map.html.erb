@@ -4,13 +4,37 @@
   </div>
   <nav id="c-menu--slide-left" class="c-menu c-menu--slide-left">
     <button class="c-menu__close">&larr; Close Menu</button>
-    <ul class="c-menu__items">
+    <!-- <ul class="c-menu__items">
       <li class="c-menu__item"><a href="#" class="c-menu__link">Home</a></li>
       <li class="c-menu__item"><a href="#" class="c-menu__link">About</a></li>
       <li class="c-menu__item"><a href="#" class="c-menu__link">Services</a></li>
       <li class="c-menu__item"><a href="#" class="c-menu__link">Work</a></li>
       <li class="c-menu__item"><a href="#" class="c-menu__link">Contact</a></li>
-    </ul>
+    </ul> -->
+    <div class="container">
+      <ul class="nav nav-tabs nav-stacked">
+        <li class="active"><a data-toggle="tab" href="#carbon">Carbon Emissions</a></li>
+        <li><a data-toggle="tab" href="#genmix">Fuel Mix</a></li>
+        <li><a data-toggle="tab" href="#about">More Info</a></li>
+      </ul>
+
+      <div class="tab-content">
+        <div id="carbon" class="tab-pane fade in active">
+          <h3>Carbon Emissions</h3>
+          <p>This shows the real time emission of carbon from your local power grid measure in pounds of carbon per megawatt of electricity produced.</p>
+          <%= render partial: "shared/carbon" %>
+        </div>
+        <div id="genmix" class="tab-pane fade">
+          <h3>Mixture Of Fuels</h3>
+          <p>Each local power grid has its own combination of fuel sources. These fuels make up variable percentages of total energy produced based on the time of day, weather, power demand, and other factors.</p>
+          <%= render partial: "shared/genmix" %>
+        </div>
+        <div id="about" class="tab-pane fade">
+          <h3>Menu 2</h3>
+          <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.</p>
+        </div>
+      </div>
+    </div>
   </nav><!-- /c-menu slide-left -->
   <div id="c-mask" class="c-mask"></div><!-- /c-mask -->
 </div><!-- /o-wrapper -->
@@ -37,28 +61,5 @@
     <%= button_to "My Location" %>
   </div>
 
-  <div class="container">
-    <ul class="nav nav-tabs">
-      <li class="active"><a data-toggle="tab" href="#carbon">Carbon Emissions</a></li>
-      <li><a data-toggle="tab" href="#genmix">Fuel Mix</a></li>
-      <li><a data-toggle="tab" href="#about">More Info</a></li>
-    </ul>
 
-    <div class="tab-content">
-      <div id="carbon" class="tab-pane fade in active">
-        <h3>Carbon Emissions</h3>
-        <p>This shows the real time emission of carbon from your local power grid measure in pounds of carbon per megawatt of electricity produced.</p>
-        <%= render partial: "shared/carbon" %>
-      </div>
-      <div id="genmix" class="tab-pane fade">
-        <h3>Mixture Of Fuels</h3>
-        <p>Each local power grid has its own combination of fuel sources. These fuels make up variable percentages of total energy produced based on the time of day, weather, power demand, and other factors.</p>
-        <%= render partial: "shared/genmix" %>
-      </div>
-      <div id="about" class="tab-pane fade">
-        <h3>Menu 2</h3>
-        <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.</p>
-      </div>
-    </div>
-  </div>
 </div>
