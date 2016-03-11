@@ -1,12 +1,15 @@
 Rails.application.routes.draw do
-  devise_for :users
-  root to: 'maps#map'
-  resources :users, :only => [:create, :show]
-  get 'signup' => 'users#new', :as => 'signup'
+  devise_for :users, :controllers => {:registrations => "registrations"}
+  resources :users, :only => [:show]
 
-  resources :sessions, only: [:new, :create]
-  get 'login' => 'sessions#new', :as => 'login'
-  get 'logout' => 'sessions#destroy', :as => 'logout'
+  root to: 'maps#map'
+
+  # resources :users, :only => [:create, :show]
+  # get 'signup' => 'users#new', :as => 'signup'
+  #
+  # resources :sessions, only: [:new, :create]
+  # get 'login' => 'sessions#new', :as => 'login'
+  # get 'logout' => 'sessions#destroy', :as => 'logout'
 
   get 'map' => 'maps#map', :as => 'map'
   get 'graph_test' => 'maps#graph_test'

@@ -1,0 +1,29 @@
+class RegistrationsController < Devise::RegistrationsController
+  def new
+    super
+  end
+
+  def create
+    @user = User.new(user_params)
+    if @user.save
+      @user.latitude = @user.zip_code.to_lat
+      @user.longitude = @user.zip_code.to_lon
+      @user.save
+      redirect_to new_user_session
+    else
+      render "new"
+    end
+  end
+
+  def update
+    super
+  end
+
+  def sign_up_params
+    params.require(:user).permit(:first_name, :last_name, :email, :password, :password_confirmation, :telephone, :zip_code)
+  end
+
+  def account_update_params
+    params.require(:user).permit(:first_name, :last_name, :email, :password, :password_confirmation, :telephone, :zip_code, :current_password)
+  end
+end
