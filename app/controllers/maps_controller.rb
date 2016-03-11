@@ -2,6 +2,9 @@ class MapsController < ApplicationController
   include HTTParty
   include WattTimeWrapper
 
+  before_action :authenticate_user!
+
+
   BASE_URI = "https://api.watttime.org:443/api/v1"
   @@latest_ba ||= nil   #the balancing authority previously called
   @@watttime_calltime ||= nil  #the time watttime api was just called
@@ -11,7 +14,7 @@ class MapsController < ApplicationController
   def letsencrypt
     render plain: ENV['LE_AUTH_RESPONSE']
   end
-  
+
   def map
     #update station database if needed
     # if @@latest_ev_calltime.nil? || @@latest_ev_calltime < Time.now - 2.weeks

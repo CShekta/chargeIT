@@ -7,7 +7,7 @@ FactoryGirl.define do
      "MyString"
     zip_code "MyString"
      1
-    password_digest "MyString"
+    encrypted_password "MyString"
     string "MyString"
   end
 end

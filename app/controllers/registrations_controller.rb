@@ -4,12 +4,12 @@ class RegistrationsController < Devise::RegistrationsController
   end
 
   def create
-    @user = User.new(user_params)
+    @user = User.new(sign_up_params)
     if @user.save
       @user.latitude = @user.zip_code.to_lat
       @user.longitude = @user.zip_code.to_lon
       @user.save
-      redirect_to new_user_session
+      redirect_to "/map"
     else
       render "new"
     end
