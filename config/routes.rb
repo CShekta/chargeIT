@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
-  get '/' => 'maps#map'
+  devise_for :users
+  root to: 'maps#map'
   resources :users, :only => [:create, :show]
   get 'signup' => 'users#new', :as => 'signup'
 

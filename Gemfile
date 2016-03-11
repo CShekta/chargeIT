@@ -47,7 +47,7 @@ gem 'whenever', :require => false
 
 gem 'puma'
 
-
+gem 'devise'
 # Use Unicorn as the app server
 # gem 'unicorn'
 
