@@ -1,6 +1,4 @@
 class UsersController < ApplicationController
-  before_action :require_login, only: [:show]
-
   # def new
   #   @user = User.new
   # end
@@ -18,12 +16,6 @@ class UsersController < ApplicationController
   # end
 
   def show
-    @user = User.find(@current_user.id)
-  end
-
-  private
-
-  def user_params
-    params.require(:resource).permit(:first_name, :last_name, :email, :zip_code, :password, :password_confirmation)
+    @user = User.find(current_user.id)
   end
 end

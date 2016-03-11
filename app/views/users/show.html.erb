@@ -1,5 +1,5 @@
-<h1>User Account Page</h1>
+<h1>My Account</h1>
+<h3>Hey, <%= @user.first_name %>!</h3>
+<h5>Thanks for stopping by. We think you're rad. </h5>
 
-<%= @user.zip_code %>
-<%= @user.latitude %>
-<%= @user.longitude %>
+<%= link_to "Edit My Account Details", edit_user_registration_path, class:"btn btn-primary" %>

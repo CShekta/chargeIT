@@ -4,6 +4,7 @@ class RegistrationsController < Devise::RegistrationsController
   end
 
   def create
+    super
     @user = User.new(sign_up_params)
     if @user.save
       @user.latitude = @user.zip_code.to_lat
@@ -18,6 +19,8 @@ class RegistrationsController < Devise::RegistrationsController
   def update
     super
   end
+
+  private
 
   def sign_up_params
     params.require(:user).permit(:first_name, :last_name, :email, :password, :password_confirmation, :telephone, :zip_code)
