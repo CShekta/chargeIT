@@ -11,8 +11,8 @@ class RegistrationsController < Devise::RegistrationsController
       @user.longitude = @user.zip_code.to_lon
       @user.save
       redirect_to "/map"
-    else
-      render "new"
+    # else
+    #   redirect_to "/users/sign_up"
     end
   end
 

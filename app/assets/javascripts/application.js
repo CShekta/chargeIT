@@ -13,7 +13,6 @@
 //= require jquery
 //= require bootstrap-sprockets
 //= require jquery_ujs
-//= require turbolinks
 //= require_tree .
 //= require d3
 //= require metrics-graphics-rails
@@ -21,21 +20,11 @@
     $("#directions").hide();
     $("#inputs").hide();
     $("#errors").hide();
+    setTimeout(function(){
+    $('.alert').slideUp(500);
+  }, 4000);
 
-  //   var slideLeft = new Menu({
-  //     wrapper: '#o-wrapper',
-  //     type: 'slide-left',
-  //     menuOpenerClass: '.c-button',
-  //     maskId: '#c-mask'
-  //   });
-  //
-  //   var slideLeftBtn = document.querySelector('#c-button--slide-left');
-  //
-  //   slideLeftBtn.addEventListener('click', function(e) {
-  //     e.preventDefault();
-  //     slideLeft.open();
-  //   });
-  //
+
   });
 
   window.onload = (function(){
