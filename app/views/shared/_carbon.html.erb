@@ -7,15 +7,15 @@
   <script>
     MG.data_graphic({
       title: "Missing Data",
-      description: "This is an example of a graphic whose data is currently missing. We've also set the error option, which appends an error icon to the title and logs an error to the browser's console.",
-      error: 'This data is blocked by Lorem Ipsum. Get your **** together, Ipsum.',
+      description: "We're sorry! This data is not available right now.",
+      error: 'Data Unavailable',
       chart_type: 'missing-data',
-      missing_text: 'This is an example of a missing chart',
-      target: '#missing-data',
-      width: 600,
+      missing_text: "We're sorry! This data is not available right now. Please check back later!",
+      target: '#carbon',
+      width: 400,
       height: 200
     });
   </script>
 <% else %>
-  <%= metrics_graphic_for JSON.parse(energy_data), target: '#carbon', title: "", description: "This graphic shows a time-series of carbon.", width: 600, height: 250, x_accessor: 'timestamp', y_accessor: 'carbon', time_format: '%Y-%m-%dT%H:%M:%SZ'%>
+  <%= metrics_graphic_for JSON.parse(energy_data), target: '#carbon', title: "", description: "This graphic shows a time-series of carbon.", width: 400, height: 200, x_accessor: 'timestamp', y_accessor: 'carbon', time_format: '%Y-%m-%dT%H:%M:%SZ'%>
 <% end %>

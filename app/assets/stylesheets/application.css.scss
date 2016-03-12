@@ -46,10 +46,12 @@
 
  // Map Styling
  #map {
- width: 960px;
- height: 500px;
+   width: auto;
+   height: 600px;
+   margin: 0;
+   padding: 0;
  }
- 
+
 // Directions Styling
 #inputs,
 #errors,
