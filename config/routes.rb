@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   devise_for :users, :controllers => {:sessions => "devise/sessions", :registrations => "registrations"}
   resources :users, :only => [:show]
 
-  root to: 'maps#map'
+  root to: 'welcome#welcome'
 
   get 'map' => 'maps#map', :as => 'map'
   get 'graph_test' => 'maps#graph_test'
