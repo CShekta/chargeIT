@@ -1,32 +1,28 @@
-<div id='missing-data'>
+<span class="s1"><div class="splash fade-in">
+</span>  <h1 class="splash-title fade-in">SPLASH SCREEN TITLE</h1>
+  <a href="#" class="splash-arrow fade-in"><img src="img/down-arrow.png" alt="" /></a>
+</div> <!-- END .splash -->
+<div class="wrapper">
+  <header class="cf">
+    <h1><a href="#">Page Title</a></h1>
+    <nav>
+   <ul>
+       <li><a href="#" class="active">Home</a></li>
+       <li><a href="#">About</a></li>
+       <li><a href="#">Work</a></li>
+       <li><a href="#">Contact</a></li>
+    </ul>
+    </nav>
+  </header>
+  <section id="main-content">
+   <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolor, velit sapiente facere tempora ullam accusamus minus laborum porro odit sequi dolorum enim optio alias at nulla laudantium voluptatibus quibusdam quaerat provident eius quo perferendis voluptatem modi maiores cumque saepe quidem ducimus numquam et commodi cupiditate libero pariatur mollitia eveniet molestias debitis quia! Natus, minima, error, porro facere cum perferendis consequatur necessitatibus id sapiente soluta veritatis magnam quasi ut cumque provident quidem nemo enim nesciunt nihil architecto in obcaecati nobis quam tenetur corrupti. Error, soluta autem consequatur mollitia dolorem sequi iusto dolore fuga facilis esse illum accusamus ratione earum quasi ipsa doloribus odio. Architecto, natus fuga non perferendis veritatis nihil repellat dolorum rerum quidem</p>
+    <br />
+    <hr />
+  </section>
+  <footer>
+    <p>&copy; 2013 - Splash Screen</p>
+  </footer>
+</div> <!-- END .wrapper -->
 
-</div>
-<% energy_data = raw(@energy_data) %>
-
-<script>
-// d3.json('energy_data', function(data) {
-//   data = MG.convert.date(energy_data, 'timestamp');
-//   MG.data_graphic({
-//       title: "Carbon Emissions",
-//       description: "This is a simple line chart. You can remove the area portion by adding area: false to the arguments list.",
-//       data: data,
-//       width: 600,
-//       height: 200,
-//       right: 40,
-//       target: '#MGtest',
-//       x_accessor: 'timestamp',
-//       y_accessor: 'carbon'
-//   });
-// });
-
-MG.data_graphic({
-  title: "Missing Data",
-  description: "This is an example of a graphic whose data is currently missing. We've also set the error option, which appends an error icon to the title and logs an error to the browser's console.",
-  error: 'This data is blocked by Lorem Ipsum. Get your **** together, Ipsum.',
-  chart_type: 'missing-data',
-  missing_text: 'This is an example of a missing chart',
-  target: '#missing-data',
-  width: 600,
-  height: 200
-});
-</script>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+<script type="text/javascript" src="js/main.js"></script>
