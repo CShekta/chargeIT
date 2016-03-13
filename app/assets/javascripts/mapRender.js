@@ -36,18 +36,32 @@ if ($("#map")) {
         var directionsInstructionsControl = L.mapbox.directions.instructionsControl('instructions', directions)
             .addTo(map.charge_map);
 
-      });
+        var directionButton = L.easyButton({
+          states: [{
+            stateName: 'directions-icon',
+            icon: 'fa-map-signs',
+            title: 'Get Directions',
+            onClick: function(control) {
+              $("#directions").slideDown();
+              $("#inputs").slideDown();
+              $("#errors").slideDown();
+              control.state('remove-directions');
+            }
+          }, {
+            icon: 'fa-undo',
+            stateName: 'remove-directions',
+            onClick: function(control) {
+              $("#directions").slideUp();
+              $("#inputs").slideUp();
+              $("#errors").slideUp();
+              control.state('directions-icon');
+            },
+            title: 'Remove Directions'
+          }]
+        });
+        directionButton.addTo(map.charge_map);
 
-      $(".directions-icon").click( function() {
-        event.preventDefault();
-        // $(".directions-icon").toggleClass("fa-flip-vertical");
-        $("#directions").slideToggle();
-        $("#inputs").slideToggle();
-        $("#errors").slideToggle();
       });
-
-        // Find user's current location
-        // var geolocate = document.getElementById('geolocate');
 
         if (!navigator.geolocation) {
           geolocate.innerHTML = 'Geolocation is not available';
