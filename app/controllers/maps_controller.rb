@@ -2,7 +2,7 @@ class MapsController < ApplicationController
   include HTTParty
   include WattTimeWrapper
 
-  before_action :authenticate_user!
+  before_action :authenticate_user!, only: [:map, :stations]
 
 
   BASE_URI = "https://api.watttime.org:443/api/v1"

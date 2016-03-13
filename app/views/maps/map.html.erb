@@ -1,3 +1,4 @@
+<div id="map-window">
 <div id="sidebar" class="sidebar collapsed">
     <!-- Nav tabs -->
     <div class="sidebar-tabs">
@@ -51,7 +52,8 @@
   <div id='directions'>
     <div id='routes'></div>
     <div id='instructions'></div>
-  </div></div>
+  </div>
+</div>
 
 <div class="directions-icon">
   <%= button_to "Get Directions" %>
@@ -59,27 +61,4 @@
 <div class="geolocate">
   <%= button_to "My Location" %>
 </div>
-<!-- <div class="container">
-  <ul class="nav nav-tabs nav-stacked">
-    <li class="active"><a data-toggle="tab" href="#carbon">Carbon Emissions</a></li>
-    <li><a data-toggle="tab" href="#genmix">Fuel Mix</a></li>
-    <li><a data-toggle="tab" href="#about">More Info</a></li>
-  </ul>
-
-  <! <div class="tab-content">
-    <div id="carbon" class="tab-pane fade in active">
-      <h3>Carbon Emissions</h3>
-      <p>This shows the real time emission of carbon from your local power grid measure in pounds of carbon per megawatt of electricity produced.</p>
-      <%= render partial: "shared/carbon" %>
-    </div>
-    <div id="genmix" class="tab-pane fade">
-      <h3>Fuel Mixture For Local Power</h3>
-      <p>Each local power grid has its own combination of fuel sources. These fuels make up variable percentages of total energy produced based on the time of day, weather, power demand, and other factors.</p>
-      <%= render partial: "shared/genmix" %>
-    </div>
-    <div id="comparison" class="tab-pane fade">
-      <h3>Comparing Carbon Emissions at Current Power level</h3>
-
-    </div>
-  </div> --> -->
 </div>
