@@ -1,7 +1,7 @@
 function loadStationEnergyData(e) {
   var coordinates = e.latlng;
 
-  var url = "http://localhost:3000/get_fuel_data";
+  var url = "/get_fuel_data";
   $.ajax({
     url: url,
     data: {
