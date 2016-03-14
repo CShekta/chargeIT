@@ -8,6 +8,9 @@ Rails.application.config.assets.precompile += %w( leaflet-sidebar.css )
 Rails.application.config.assets.precompile += %w( maps.css.scss )
 Rails.application.config.assets.precompile += %w( welcome.css )
 Rails.application.config.assets.precompile += %w( users.css )
+Rails.application.config.assets.precompile += %w( registrations.css)
+Rails.application.config.assets.precompile += %w( sessions.css)
+
 # Add additional assets to the asset load path
 # Rails.application.config.assets.paths << Emoji.images_path
 

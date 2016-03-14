@@ -46,7 +46,8 @@ class MapsController < ApplicationController
   end
 
   def get_fuel_data
-    render json: get_energy_data_for_location, status: 200
+    @energy_data = get_energy_data_for_location
+    render partial: "shared/carbon"
   end
 
   def get_energy_data_for_location

@@ -1,32 +1,32 @@
 <div class="center-div">
-  <h2>Edit <%= resource_name.to_s.humanize %></h2>
+  <h3 class="text-center">Edit</h3><br/>
   <div class="form-group">
     <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
       <%= devise_error_messages! %>
 
       <div class="field">
         <%= f.label :first_name %><br />
-        <%= f.text_field :first_name, autofocus: true, :class => "form-control" %>
+        <%= f.text_field :first_name, autofocus: true, :class => "form-control" %><br />
       </div>
 
       <div class="field">
         <%= f.label :last_name %><br />
-        <%= f.text_field :last_name, autofocus: true, :class => "form-control" %>
+        <%= f.text_field :last_name, autofocus: true, :class => "form-control" %><br />
       </div>
 
       <div class="field">
         <%= f.label :email %><br />
-        <%= f.email_field :email, autofocus: true, :class => "form-control" %>
+        <%= f.email_field :email, autofocus: true, :class => "form-control" %><br />
       </div>
 
       <div class="field">
         <%= f.label :telephone %><br />
-        <%= f.telephone_field :telephone, autofocus: true, :class => "form-control" %>
+        <%= f.telephone_field :telephone, autofocus: true, :class => "form-control" %><br />
       </div>
 
       <div class="field">
         <%= f.label :zip_code %><br />
-        <%= f.text_field :zip_code, autofocus: true, :class => "form-control" %>
+        <%= f.text_field :zip_code, autofocus: true, :class => "form-control" %><br />
       </div>
 
       <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
@@ -35,21 +35,21 @@
 
       <div class="field">
         <%= f.label :password %> <i>(leave blank if you don't want to change it)</i><br />
-        <%= f.password_field :password, autocomplete: "off", :class => "form-control" %>
+        <%= f.password_field :password, autocomplete: "off", :class => "form-control" %><br />
       </div>
 
       <div class="field">
         <%= f.label :password_confirmation %><br />
-        <%= f.password_field :password_confirmation, autocomplete: "off", :class => "form-control" %>
+        <%= f.password_field :password_confirmation, autocomplete: "off", :class => "form-control" %><br />
       </div>
 
       <div class="field">
         <%= f.label :current_password %> <i>(we need your current password to confirm your changes)</i><br />
-        <%= f.password_field :current_password, autocomplete: "off", :class => "form-control" %>
+        <%= f.password_field :current_password, autocomplete: "off", :class => "form-control" %><br />
       </div>
 
       <div class="actions">
-        <%= f.submit "Update", :class => 'btn btn-success' %>
+        <%= f.submit "Update", :class => 'btn black-button' %>
       </div>
     <% end %>
   </div>
@@ -57,8 +57,9 @@
 <br>
 <br>
 <div class="center-div">
-  <h3>Cancel my account</h3>
+  <h3 class="text-center">Cancel my account</h3>
 
-  <p>Unhappy? Sorry about that! <%= button_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete, :class => 'btn btn-danger' %></p>
+  <p class="text-center">Unhappy? Sorry about that!</p><br/>
+  <%= button_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete, :class => 'btn btn-danger round-button' %>
 
 </div>
