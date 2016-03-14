@@ -1,4 +1,3 @@
-require 'pry'
 class MapsController < ApplicationController
   include HTTParty
   include WattTimeWrapper
@@ -37,7 +36,6 @@ class MapsController < ApplicationController
     #get energy data from watt time
     @energy_data = get_energy_data_for_location.sort_by { |each| each[:timestamp] }
     @marginal_carbon = get_marginal.sort_by { |each| each[:timestamp] }
-    # binding.pry
   end
 
   def about; end

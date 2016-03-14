@@ -13,10 +13,11 @@ body {
   font-family: 'Lato';
 }
 
-//forms
-.center-div {
-  max-width: 50%;
-  margin: 0 auto;
+//alert
+
+.alert {
+  width: 700px;
+  margin: auto;
 }
 
 /*flash*/
@@ -74,6 +75,11 @@ body {
   }
 
   //Devise Styles
+
+  .center-div {
+    max-width: 50%;
+    margin: 0 auto;
+  }
 
   .black-button {
     background-color: #000000 !important;
