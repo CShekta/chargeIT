@@ -7,7 +7,9 @@
   z-index: 2000;
  }
   .sidebar.collapsed {
-    width: 40px; }
+    width: 40px;
+    margin-top: 20px;
+   }
   @media (min-width: 768px) {
     .sidebar {
       top: 60px;
@@ -24,7 +26,10 @@
       width: 460px; } }
 
 .sidebar-left {
-  left: 0; }
+  left: 0;
+  margin-top: 20px;
+
+ }
   @media (min-width: 768px) {
     .sidebar-left {
       left: 10px; } }

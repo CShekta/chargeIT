@@ -28,13 +28,13 @@
 #inputs {
    z-index: 10;
    top: 10px;
-   left: 10px;
+   left: 100px;
 }
 
 #directions {
    z-index: 99;
    background: rgba(0,0,0,.8);
-   top: 0;
+   top: 10px;
    right: 0;
    bottom: 0;
    overflow: auto;
