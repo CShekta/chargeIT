@@ -26,7 +26,7 @@ class MapsController < ApplicationController
     # end
     #get energy data from watt time
     @energy_data = query_data.sort_by { |each| each[:timestamp] }
-    @marginal_carbon = @@latest_marginal
+    @marginal_carbon = get_marginal.sort_by { |each| each[:timestamp] }
     # binding.pry
   end
 
@@ -61,59 +61,16 @@ class MapsController < ApplicationController
   def graph_test
     # energy_data = HTTParty.get("#{BASE_URI}/datapoints/?ba=BPA&start_at=2016-02-27&market=RT5M", headers={'Authorization': "Token #{ENV['WATT_TIME_TOKEN']}"})
     # @energy_data = energy_data["results"]
-    start_time = (Time.now - 1.day).strftime("%Y-%m-%d")
-    marginal_carbon = HTTParty.get("https://api.watttime.org:443/api/v1/marginal/?ba=PSEI", headers={'Authorization': "Token #{ENV['WATT_TIME_TOKEN']}"})
-    @latest_marginal = marginal_carbon["results"]
 
     binding.pry
   end
-
-  def call_for_charging_stations(modified_since)
-    @stations = HTTParty.get("http://api.openchargemap.io/v2/poi/?output=json&countrycode=US&opendata=true&modifiedsince=#{modified_since}&maxresults=10000")
-    @stations.each do |station|
-      Station.where('ev_id = ?', station["ID"]).update(
-        lat: station["AddressInfo"]["Latitude"],
-        long: station["AddressInfo"]["Longitude"],
-        title: station["AddressInfo"]["Title"],
-        address_line1: station["AddressInfo"]["AddressLine1"],
-        address_line2: station["AddressInfo"]["AddressLine2"],
-        city: station["AddressInfo"]["Town"],
-        state: station["AddressInfo"]["StateOrProvince"],
-        zip: station["AddressInfo"]["Postcode"],
-        usage_cost: station["UsageCost"],
-        phone: station["AddressInfo"]["ContactTelephone1"],
-        comments: station["GeneralComments"],
-      )
-    end
-  end
-
-  def map_test
-    @response = HTTParty.get("http://api.openchargemap.io/v2/poi/?output=json&countrycode=US&opendata=true&maxresults=10000")
-    @response.each do |station|
-      Station.create(
-        ev_id: station["ID"],
-        lat: station["AddressInfo"]["Latitude"],
-        long: station["AddressInfo"]["Longitude"],
-        title: station["AddressInfo"]["Title"],
-        address_line1: station["AddressInfo"]["AddressLine1"],
-        address_line2: station["AddressInfo"]["AddressLine2"],
-        city: station["AddressInfo"]["Town"],
-        state: station["AddressInfo"]["StateOrProvince"],
-        zip: station["AddressInfo"]["Postcode"],
-        usage_cost: station["UsageCost"],
-        phone: station["AddressInfo"]["ContactTelephone1"],
-        comments: station["GeneralComments"],
-      )
-    end
-  end
-
 
   def get_fuel_data
     render json: query_data, status: 200
   end
 
   def query_data
-    start_time = (Time.now - 1.day).strftime("%Y-%m-%d")
+    start_time = (Time.now - 2.day).strftime("%Y-%m-%d")
     if !params[:lat] && current_user #the user logged in but hasn't used the map yet
       # ba = get_ba(current_user.latitude, current_user.longitude)
       ba = "BPA"
@@ -141,13 +98,52 @@ class MapsController < ApplicationController
     ba = balancing_authority[0]["abbrev"]
   end
 
-  def get_marginal(ba)
+  def get_marginal
     start_time = (Time.now - 1.day).strftime("%Y-%m-%d")
-    if @@latest_ba == ba && @@watttime_calltime < Time.now - 15.min #user is requesting info from the same ba
+    if @@latest_ba == "PSEI" && @@watttime_calltime < Time.now - 15.min #user is requesting info from the same ba
       return @@latest_marginal
     else
-      marginal_carbon = HTTParty.get("https://api.watttime.org:443/api/v1/marginal/?ba=#{ba}&start_at=#{start_time}", headers={'Authorization': "Token #{ENV['WATT_TIME_TOKEN']}"})
-      @@latest_marginal = marginal_carbon["results"]
+      marginal_carbon = HTTParty.get("#{BASE_URI}/marginal/?ba=PSEI", :headers => { "Authorization" => "TOKEN #{ENV['WATT_TIME_TOKEN']}"})
+      @latest_marginal = marginal_carbon["results"]
+    end
+  end
+
+  def map_test
+    @response = HTTParty.get("http://api.openchargemap.io/v2/poi/?output=json&countrycode=US&opendata=true&maxresults=10000")
+    @response.each do |station|
+      Station.create(
+        ev_id: station["ID"],
+        lat: station["AddressInfo"]["Latitude"],
+        long: station["AddressInfo"]["Longitude"],
+        title: station["AddressInfo"]["Title"],
+        address_line1: station["AddressInfo"]["AddressLine1"],
+        address_line2: station["AddressInfo"]["AddressLine2"],
+        city: station["AddressInfo"]["Town"],
+        state: station["AddressInfo"]["StateOrProvince"],
+        zip: station["AddressInfo"]["Postcode"],
+        usage_cost: station["UsageCost"],
+        phone: station["AddressInfo"]["ContactTelephone1"],
+        comments: station["GeneralComments"],
+      )
+    end
+  end
+
+  def call_for_charging_stations(modified_since)
+    @stations = HTTParty.get("http://api.openchargemap.io/v2/poi/?output=json&countrycode=US&opendata=true&modifiedsince=#{modified_since}&maxresults=10000")
+    @stations.each do |station|
+      Station.where('ev_id = ?', station["ID"]).update(
+        lat: station["AddressInfo"]["Latitude"],
+        long: station["AddressInfo"]["Longitude"],
+        title: station["AddressInfo"]["Title"],
+        address_line1: station["AddressInfo"]["AddressLine1"],
+        address_line2: station["AddressInfo"]["AddressLine2"],
+        city: station["AddressInfo"]["Town"],
+        state: station["AddressInfo"]["StateOrProvince"],
+        zip: station["AddressInfo"]["Postcode"],
+        usage_cost: station["UsageCost"],
+        phone: station["AddressInfo"]["ContactTelephone1"],
+        comments: station["GeneralComments"],
+      )
     end
   end
 end

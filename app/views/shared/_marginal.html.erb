@@ -16,5 +16,9 @@
     });
   </script>
 <% else %> -->
-  <%= metrics_graphic_for @marginal_carbon, target: '#carbon', title: "", description: "This graphic shows a time-series of carbon.", width: 400, height: 200, x_accessor: 'timestamp', y_accessor: 'carbon', time_format: '%Y-%m-%dT%H:%M:%SZ'%>
+<% @marginal_carbon.each do |response| %>
+  <% response['marginal_carbon_value'] = response['marginal_carbon']['value'] %>
+<% end %>
+
+  <%= metrics_graphic_for @marginal_carbon, target: '#marginal', title: "", description: "This graphic shows a time-series of carbon.", width: 400, height: 200, x_accessor: 'timestamp', y_accessor: 'marginal_carbon_value', time_format: '%Y-%m-%dT%H:%M:%SZ'%>
 <!-- <% end %> -->
