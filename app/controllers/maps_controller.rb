@@ -12,6 +12,7 @@ class MapsController < ApplicationController
   @@latest_energy_data ||= []
   @@latest_ev_calltime ||= nil  #the time when openchargemap was previously called
   @@latest_marginal ||= [] #latest marginal carbon data
+  @@working_bas = ["BPA", "CAISO", "MISO", "ISONE"].cycle
 
   # def initialize
   #   @current_energy_data = {}
@@ -42,9 +43,6 @@ class MapsController < ApplicationController
   def about; end
 
   def graph_test
-    # energy_data = HTTParty.get("#{BASE_URI}/datapoints/?ba=BPA&start_at=2016-02-27&market=RT5M", headers={'Authorization': "Token #{ENV['WATT_TIME_TOKEN']}"})
-    # @energy_data = energy_data["results"]
-
   end
 
   def get_fuel_data
@@ -53,18 +51,16 @@ class MapsController < ApplicationController
 
   def get_energy_data_for_location
     start_time = (Time.now - 2.day).strftime("%Y-%m-%d")
-    ba = get_ba(params[:lat].to_s, params[:long].to_s)
-    @current_ba = ba
+    working_bas = ["BPA", "CAISO", "MISO", "ISONE"]
+    if start_time
+      ba = working_bas.sample
+    else
+      ba = get_ba(params[:lat].to_s, params[:long].to_s)
+    end
     energy_data = HTTParty.get("#{BASE_URI}/datapoints/?ba=#{ba}&start_at=#{start_time}&market=RT5M", :headers => { "Authorization" => "TOKEN #{ENV['WATT_TIME_TOKEN']}"})
     puts "ba: #{ba}"
-    @@watttime_calltime = Time.now
     @energy_data = energy_data["results"]
   end
-
-  # def get_balancing_authority(lat,long)
-  #   balancing_authority = HTTParty.get("#{BASE_URI}/balancing_authorities/?loc={'type':'Point','coordinates':[#{lat},#{long}]}")
-  #   balancing_authority_name = balancing_authority[0]["name"]
-  # end
 
   def get_ba(lat,long)
     query = "#{BASE_URI}/balancing_authorities/?loc={'type':'Point','coordinates':[#{long},#{lat}]}"
@@ -74,12 +70,8 @@ class MapsController < ApplicationController
 
   def get_marginal
     start_time = (Time.now - 1.day).strftime("%Y-%m-%d")
-    if @@latest_ba == "PSEI" && @@watttime_calltime < Time.now - 15.min #user is requesting info from the same ba
-      return @@latest_marginal
-    else
-      marginal_carbon = HTTParty.get("#{BASE_URI}/marginal/?ba=PSEI", :headers => { "Authorization" => "TOKEN #{ENV['WATT_TIME_TOKEN']}"})
-      @latest_marginal = marginal_carbon["results"]
-    end
+    marginal_carbon = HTTParty.get("#{BASE_URI}/marginal/?ba=PSEI", :headers => { "Authorization" => "TOKEN #{ENV['WATT_TIME_TOKEN']}"})
+    @latest_marginal = marginal_carbon["results"]
   end
 
   def stations
