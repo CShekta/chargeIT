@@ -19,6 +19,7 @@
       var new_map = L.mapbox.map('map', this.mapboxid, {
       });
       var sidebar = L.control.sidebar('sidebar').addTo(map);
+      sidebar.open("about");
 
       L.tileLayer(this.mapLayer, {
         attribution: this.attribution,
