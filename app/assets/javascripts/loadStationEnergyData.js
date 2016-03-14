@@ -11,7 +11,7 @@ function loadStationEnergyData(e) {
     type: "GET",
     success: function(response) {
       console.log("you're ok");
-      $("#carbon-graph").html(response);
+      $("#carbon-graph").html(response).fadeIn().delay(2000);
     },
     error: function( request, status, error) {
       console.log(error);

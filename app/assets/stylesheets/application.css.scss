@@ -64,10 +64,65 @@ body {
 
   .navbar-default .navbar-brand {
     color: black;
+    font-size: x-large;
   }
 
 .separator {
     position: relative;
     display: block;
     padding: 15px 0px;
+  }
+
+  //Devise Styles
+
+  .black-button {
+    background-color: #000000 !important;
+    color: #FFFFFF;
+    border-radius: 50px;
+  }
+
+  .black-button:hover {
+    text-decoration: none;
+    color: #bfbfbf;
+  }
+
+  .round-button {
+    border-radius: 50px;
+
+  }
+
+  .text-center {
+    margin-bottom: 15px;
+    text-align: center;
+  }
+
+  .form-control {
+    margin-bottom: 10px;
+  }
+
+  .sessions .btn {
+    margin: auto;
+    display: block;
+    margin-top: 10px;
+    font-size: larger;
+  }
+
+  .tablau {
+    width: auto;
+    margin-bottom: 20px;
+    margin: auto;
+    margin-top: 50px;
+    margin-bottom: 50px
+  }
+
+  .user-center {
+    text-align: center;
+  }
+
+  .users.show > h2 {
+    margin-bottom: 15px
+  }
+
+  .user-title {
+    margin-bottom: 20px;
   }
