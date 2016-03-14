@@ -13,11 +13,20 @@ class MapsController < ApplicationController
   @@latest_ev_calltime ||= nil  #the time when openchargemap was previously called
   @@latest_marginal ||= [] #latest marginal carbon data
 
+  # def initialize
+  #   @current_energy_data = {}
+  #   @current_marginal_data = {}
+  #   @current_ba = {}
+  #
+  # end
+
   def letsencrypt
     render plain: ENV['LE_AUTH_RESPONSE']
   end
 
   def map
+
+
     #update station database if needed
     # if @@latest_ev_calltime.nil? || @@latest_ev_calltime < Time.now - 2.weeks
     #   @@latest_ev_calltime = Time.now - 2.weeks
@@ -25,9 +34,52 @@ class MapsController < ApplicationController
     #   @@latest_ev_calltime = Time.now
     # end
     #get energy data from watt time
-    @energy_data = query_data.sort_by { |each| each[:timestamp] }
+    @energy_data = get_energy_data_for_location.sort_by { |each| each[:timestamp] }
     @marginal_carbon = get_marginal.sort_by { |each| each[:timestamp] }
     # binding.pry
+  end
+
+  def about; end
+
+  def graph_test
+    # energy_data = HTTParty.get("#{BASE_URI}/datapoints/?ba=BPA&start_at=2016-02-27&market=RT5M", headers={'Authorization': "Token #{ENV['WATT_TIME_TOKEN']}"})
+    # @energy_data = energy_data["results"]
+
+  end
+
+  def get_fuel_data
+    render json: get_energy_data_for_location, status: 200
+  end
+
+  def get_energy_data_for_location
+    start_time = (Time.now - 2.day).strftime("%Y-%m-%d")
+    ba = get_ba(params[:lat].to_s, params[:long].to_s)
+    @current_ba = ba
+    energy_data = HTTParty.get("#{BASE_URI}/datapoints/?ba=#{ba}&start_at=#{start_time}&market=RT5M", :headers => { "Authorization" => "TOKEN #{ENV['WATT_TIME_TOKEN']}"})
+    puts "ba: #{ba}"
+    @@watttime_calltime = Time.now
+    @energy_data = energy_data["results"]
+  end
+
+  # def get_balancing_authority(lat,long)
+  #   balancing_authority = HTTParty.get("#{BASE_URI}/balancing_authorities/?loc={'type':'Point','coordinates':[#{lat},#{long}]}")
+  #   balancing_authority_name = balancing_authority[0]["name"]
+  # end
+
+  def get_ba(lat,long)
+    query = "#{BASE_URI}/balancing_authorities/?loc={'type':'Point','coordinates':[#{long},#{lat}]}"
+    balancing_authority = HTTParty.get(query)
+    ba = balancing_authority[0]["abbrev"]
+  end
+
+  def get_marginal
+    start_time = (Time.now - 1.day).strftime("%Y-%m-%d")
+    if @@latest_ba == "PSEI" && @@watttime_calltime < Time.now - 15.min #user is requesting info from the same ba
+      return @@latest_marginal
+    else
+      marginal_carbon = HTTParty.get("#{BASE_URI}/marginal/?ba=PSEI", :headers => { "Authorization" => "TOKEN #{ENV['WATT_TIME_TOKEN']}"})
+      @latest_marginal = marginal_carbon["results"]
+    end
   end
 
   def stations
@@ -54,58 +106,6 @@ class MapsController < ApplicationController
       elements << station_hash
     end
     render json: { data: elements, status: 200 }.as_json
-  end
-
-  def about; end
-
-  def graph_test
-    # energy_data = HTTParty.get("#{BASE_URI}/datapoints/?ba=BPA&start_at=2016-02-27&market=RT5M", headers={'Authorization': "Token #{ENV['WATT_TIME_TOKEN']}"})
-    # @energy_data = energy_data["results"]
-
-    binding.pry
-  end
-
-  def get_fuel_data
-    render json: query_data, status: 200
-  end
-
-  def query_data
-    start_time = (Time.now - 2.day).strftime("%Y-%m-%d")
-    if !params[:lat] && current_user #the user logged in but hasn't used the map yet
-      # ba = get_ba(current_user.latitude, current_user.longitude)
-      ba = "BPA"
-    else #use the coordinates from the map click
-      ba = get_ba(params[:lat].to_s, params[:long].to_s)
-      @@latest_ba = ba
-    end
-    if @@latest_ba == ba && @@watttime_calltime < Time.now - 15.min #user is requesting info from the same ba
-      return @@latest_energy_data
-    else
-      energy_data = HTTParty.get("#{BASE_URI}/datapoints/?ba=#{ba}&start_at=#{start_time}&market=RT5M", headers={'Authorization': "Token #{ENV['WATT_TIME_TOKEN']}"})
-      @@watttime_calltime = Time.now
-      @@latest_energy_data = energy_data["results"]
-    end
-  end
-
-  def get_balancing_authority(lat,long)
-    balancing_authority = HTTParty.get("#{BASE_URI}/balancing_authorities/?loc={'type':'Point','coordinates':[#{lat},#{long}]}")
-    balancing_authority_name = balancing_authority[0]["name"]
-  end
-
-  def get_ba(lat,long)
-    query = "#{BASE_URI}/balancing_authorities/?loc={'type':'Point','coordinates':[#{long},#{lat}]}"
-    balancing_authority = HTTParty.get(query)
-    ba = balancing_authority[0]["abbrev"]
-  end
-
-  def get_marginal
-    start_time = (Time.now - 1.day).strftime("%Y-%m-%d")
-    if @@latest_ba == "PSEI" && @@watttime_calltime < Time.now - 15.min #user is requesting info from the same ba
-      return @@latest_marginal
-    else
-      marginal_carbon = HTTParty.get("#{BASE_URI}/marginal/?ba=PSEI", :headers => { "Authorization" => "TOKEN #{ENV['WATT_TIME_TOKEN']}"})
-      @latest_marginal = marginal_carbon["results"]
-    end
   end
 
   def map_test

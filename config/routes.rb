@@ -11,6 +11,7 @@ Rails.application.routes.draw do
   get 'about' => 'maps#about'
   get 'get_fuel_data' => 'maps#get_fuel_data'
   get 'map_stations' => 'maps#stations'
+  get 'map_location' => 'maps#location'
 
   post 'notify' => 'twilio#notify'
 

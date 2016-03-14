@@ -84,12 +84,5 @@ if ($("#map")) {
             })
             .addTo(map.charge_map);
         });
-
-        // If the user chooses not to allow their location
-        // to be shared, display an error message.
-        // map.on('locationerror', function() {
-        //     geolocate.innerHTML = 'Position could not be found';
-        // });
-
       });
     }
