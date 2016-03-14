@@ -1,21 +1,20 @@
 <div id="carbon"></div>
 
 
-<% energy_data = raw(@energy_data.to_json) %>
+<!-- <% energy_data = raw(@energy_data.to_json) %> -->
 
 <% if @energy_data.empty? %>
   <script>
     MG.data_graphic({
-      title: "Missing Data",
       description: "We're sorry! This data is not available right now.",
       error: 'Data Unavailable',
       chart_type: 'missing-data',
-      missing_text: "We're sorry! This data is not available right now. Please check back later!",
+      missing_text: "We're sorry! This data is not available right now.",
       target: '#carbon',
-      width: 400,
+      width: 350,
       height: 200
     });
   </script>
 <% else %>
-  <%= metrics_graphic_for JSON.parse(energy_data), target: '#carbon', title: "", description: "This graphic shows a time-series of carbon.", width: 400, height: 200, x_accessor: 'timestamp', y_accessor: 'carbon', time_format: '%Y-%m-%dT%H:%M:%SZ'%>
+  <%= metrics_graphic_for @energy_data, target: '#carbon', title: "", description: "This graphic shows a time-series of carbon.", width: 350, height: 200, x_accessor: 'timestamp', y_accessor: 'carbon', time_format: '%Y-%m-%dT%H:%M:%SZ'%>
 <% end %>
