@@ -23,7 +23,10 @@ class MapsController < ApplicationController
     #   @@latest_ev_calltime = Time.now
     # end
     #get energy data from watt time
+
     @energy_data = get_energy_data_for_location.sort_by { |each| each[:timestamp] }
+    gon.carbon_perkWh = @energy_data.last["carbon"] * 1000
+
     # @marginal_carbon = get_marginal.sort_by { |each| each[:timestamp] }
   end
 
@@ -39,7 +42,7 @@ class MapsController < ApplicationController
 
   def get_energy_data_for_location
     start_time = (Time.now - 2.day).strftime("%Y-%m-%d")
-    working_bas = ["BPA", "CAISO", "MISO", "ISONE"]
+    working_bas = ["BPA"]
     if start_time
       ba = working_bas.sample
     else

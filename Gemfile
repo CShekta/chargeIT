@@ -50,6 +50,8 @@ gem 'puma'
 gem 'devise'
 
 gem 'highcharts-rails'
+
+gem 'gon'
 # Use Unicorn as the app server
 # gem 'unicorn'
 

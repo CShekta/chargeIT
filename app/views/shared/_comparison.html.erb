@@ -1,3 +1,10 @@
+<p>
+  Today we have multiple ways to measure fuel economy of vehicles. Traditionally we use miles per gallon(MPG), and electric vehicles use miles per gallon equivalent(MPGe), or kilowatt hours per mile (kWh/mile). However, none of these measurements focus on the <i>environmental impact</i> of our transportation. So we've calculated a new measurement of fuel economy that will compare the actual destructive by products of our vehicles: lbs of carbon per miles (CO2/miles).
+</p>
+<p>
+  Burning gasoline emits about 20 lbs of CO2 per gallon. But how much CO2 are electric vehicles(EVs) emitting? That depends on the sources your local balancing authority used to generate your electricity. See how fueling your EV with electricity right now compares to gas powered cars in the chart below, and check out the <%= link_to "about", about_path %> to see how this was calculated.
+</p>
+
 <div id="MPG-comparison"></div>
 
 <script>
@@ -8,14 +15,14 @@ $(function () {
             type: 'column'
         },
         title: {
-            text: 'My thang'
+            text: 'Vehicle Comparisons'
         },
         xAxis: {
-            type: 'category'
+            type: 'Vehicle'
         },
         yAxis: {
             title: {
-                text: 'MPG'
+                text: 'lbs Of Carbon Per Mile '
             }
 
         },
@@ -34,14 +41,23 @@ $(function () {
         series: [{
             name: 'Brands',
             data: [{
-                name: 'Tesla',
-                y: 56.33,
+                name: 'Ford F150 Pickup 2WD (2015)',
+                y: 22,
             }, {
-                name: 'Camry',
-                y: 24.03,
+                name: 'Toyota Camry Sedan (2015)',
+                y: 25,
             }, {
-                name: 'Bike',
+                name: 'Honda Accord (2015)',
                 y: 10.38,
+            // }, {
+            //     name: 'Honda Fit EV (2014)',
+            //     y: 29/100 * gon.carbon_perkWh,
+            // }, {
+            //     name: 'Nissan Leaf (2016)',
+            //     y: 30/100 * gon.carbon_perkWh,
+            // }, {
+            //     name: 'Tesla Model S AWD - 70D (2016)',
+            //     y: 33/100 * gon.carbon_perkWh,
             },]
         }],
     });
