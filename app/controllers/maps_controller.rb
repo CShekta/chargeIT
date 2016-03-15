@@ -13,17 +13,6 @@ class MapsController < ApplicationController
   @@latest_marginal ||= [] #latest marginal carbon data
   @@working_bas = ["BPA", "CAISO", "MISO", "ISONE"].cycle
 
-  # def initialize
-  #   @current_energy_data = {}
-  #   @current_marginal_data = {}
-  #   @current_ba = {}
-  #
-  # end
-
-  def letsencrypt
-    render plain: ENV['LE_AUTH_RESPONSE']
-  end
-
   def map
 
 
@@ -35,7 +24,7 @@ class MapsController < ApplicationController
     # end
     #get energy data from watt time
     @energy_data = get_energy_data_for_location.sort_by { |each| each[:timestamp] }
-    @marginal_carbon = get_marginal.sort_by { |each| each[:timestamp] }
+    # @marginal_carbon = get_marginal.sort_by { |each| each[:timestamp] }
   end
 
   def about; end

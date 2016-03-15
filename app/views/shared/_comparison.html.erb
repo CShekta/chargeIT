@@ -1,0 +1,55 @@
+<head>
+  <script src="https://code.highcharts.com/highcharts.js"></script>
+  <script src="https://code.highcharts.com/modules/data.js"></script>
+  <script src="https://code.highcharts.com/modules/drilldown.js"></script>
+</head>
+
+<div id="MPG-comparison"></div>
+
+<script>
+$(function () {
+    // Create the chart
+    $('#container').highcharts({
+        chart: {
+            type: 'column'
+        },
+        title: {
+            text: 'My thang'
+        },
+        xAxis: {
+            type: 'category'
+        },
+        yAxis: {
+            title: {
+                text: 'MPG'
+            }
+
+        },
+        legend: {
+            enabled: false
+        },
+        plotOptions: {
+            series: {
+                borderWidth: 0,
+                dataLabels: {
+                    enabled: false,
+                    format: '{point.y:.1f}'
+                }
+            }
+        },
+        series: [{
+            name: 'Brands',
+            data: [{
+                name: 'Tesla',
+                y: 56.33,
+            }, {
+                name: 'Camry',
+                y: 24.03,
+            }, {
+                name: 'Bike',
+                y: 10.38,
+            },]
+        }],
+    });
+});
+</script>

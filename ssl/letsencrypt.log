@@ -1,0 +1,14 @@
+Traceback (most recent call last):
+  File "/usr/local/Cellar/letsencrypt/0.4.2/libexec/bin/letsencrypt", line 9, in <module>
+    load_entry_point('letsencrypt==0.4.2', 'console_scripts', 'letsencrypt')()
+  File "/usr/local/Cellar/letsencrypt/0.4.2/libexec/lib/python2.7/site-packages/letsencrypt/cli.py", line 1953, in main
+    args = prepare_and_parse_args(plugins, cli_args)
+  File "/usr/local/Cellar/letsencrypt/0.4.2/libexec/lib/python2.7/site-packages/letsencrypt/cli.py", line 1645, in prepare_and_parse_args
+    return helpful.parse_args()
+  File "/usr/local/Cellar/letsencrypt/0.4.2/libexec/lib/python2.7/site-packages/letsencrypt/cli.py", line 1247, in parse_args
+    self.handle_csr(parsed_args)
+  File "/usr/local/Cellar/letsencrypt/0.4.2/libexec/lib/python2.7/site-packages/letsencrypt/cli.py", line 1299, in handle_csr
+    .format(", ".join(csr_domains), ", ".join(config_domains)))
+ConfigurationError: Inconsistent domain requests:
+From the CSR: chargeIT.gyi3q2wmrx.us-west-2.elasticbeanstalk.com
+From command line/config: chargeit.gyi3q2wmrx.us-west-2.elasticbeanstalk.com
