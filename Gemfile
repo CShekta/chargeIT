@@ -48,6 +48,8 @@ gem 'whenever', :require => false
 gem 'puma'
 
 gem 'devise'
+
+gem 'highcharts-rails'
 # Use Unicorn as the app server
 # gem 'unicorn'
 

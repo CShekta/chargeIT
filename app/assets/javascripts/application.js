@@ -16,6 +16,8 @@
 //= require_tree .
 //= require d3
 //= require metrics-graphics-rails
+//= require highcharts
+
   $( document ).ready(function() {
     $("#directions").hide();
     $("#inputs").hide();
