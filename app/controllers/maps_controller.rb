@@ -25,7 +25,7 @@ class MapsController < ApplicationController
     #get energy data from watt time
 
     @energy_data = get_energy_data_for_location.sort_by { |each| each[:timestamp] }
-    gon.carbon_perkWh = @energy_data.last["carbon"] * 1000
+    gon.carbon_perkWh = @energy_data.first["carbon"] / 1000
 
     # @marginal_carbon = get_marginal.sort_by { |each| each[:timestamp] }
   end

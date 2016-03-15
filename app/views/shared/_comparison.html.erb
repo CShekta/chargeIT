@@ -4,62 +4,6 @@
 <p>
   Burning gasoline emits about 20 lbs of CO2 per gallon. But how much CO2 are electric vehicles(EVs) emitting? That depends on the sources your local balancing authority used to generate your electricity. See how fueling your EV with electricity right now compares to gas powered cars in the chart below, and check out the <%= link_to "about", about_path %> to see how this was calculated.
 </p>
+<script src="https://code.highcharts.com/highcharts.js"></script>
 
 <div id="MPG-comparison"></div>
-
-<script>
-$(function () {
-    // Create the chart
-    $('#MPG-comparison').highcharts({
-        chart: {
-            type: 'column'
-        },
-        title: {
-            text: 'Vehicle Comparisons'
-        },
-        xAxis: {
-            type: 'Vehicle'
-        },
-        yAxis: {
-            title: {
-                text: 'lbs Of Carbon Per Mile '
-            }
-
-        },
-        legend: {
-            enabled: false
-        },
-        plotOptions: {
-            series: {
-                borderWidth: 0,
-                dataLabels: {
-                    enabled: false,
-                    format: '{point.y:.1f}'
-                }
-            }
-        },
-        series: [{
-            name: 'Brands',
-            data: [{
-                name: 'Ford F150 Pickup 2WD (2015)',
-                y: 22,
-            }, {
-                name: 'Toyota Camry Sedan (2015)',
-                y: 25,
-            }, {
-                name: 'Honda Accord (2015)',
-                y: 10.38,
-            // }, {
-            //     name: 'Honda Fit EV (2014)',
-            //     y: 29/100 * gon.carbon_perkWh,
-            // }, {
-            //     name: 'Nissan Leaf (2016)',
-            //     y: 30/100 * gon.carbon_perkWh,
-            // }, {
-            //     name: 'Tesla Model S AWD - 70D (2016)',
-            //     y: 33/100 * gon.carbon_perkWh,
-            },]
-        }],
-    });
-});
-</script>
