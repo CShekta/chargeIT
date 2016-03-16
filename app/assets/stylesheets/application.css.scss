@@ -13,6 +13,11 @@ body {
   font-family: 'Lato';
 }
 
+body { padding-top: 70px; }
+@media screen and (max-width: 768px) {
+    body { padding-top: 0px; }
+}
+
 //alert
 
 .alert {
@@ -137,3 +142,23 @@ body {
     display: block;
     margin-top: 20px;
   }
+
+//about page
+.jumbotron {
+  background: asset_url('b-wRoad.jpg') center center;
+  text-shadow: 0 2px 10px #000;
+
+    color: #ffffff;
+    padding: 50px 150px;
+
+}
+
+#about-this-site {
+  font-size: 16px;
+}
+
+.bg-grey {
+    background-color: #f6f6f6;
+    padding: 60px 50px;
+
+}
