@@ -33,6 +33,7 @@ class MapsController < ApplicationController
   def about; end
 
   def graph_test
+    @energy_data = get_energy_data_for_location.sort_by { |each| each[:timestamp] }
   end
 
   def get_fuel_data
