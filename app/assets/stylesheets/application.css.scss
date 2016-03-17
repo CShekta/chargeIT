@@ -4,6 +4,7 @@
 @import "font-awesome";
 @import url(https://fonts.googleapis.com/css?family=Arvo:400,700);
 @import url(https://fonts.googleapis.com/css?family=Lato:400,100,900,700,300);
+@import url(https://fonts.googleapis.com/css?family=Sree+Krushnadevaraya);
 
 /*
 *= require metricsgraphics
@@ -167,28 +168,53 @@ body { padding-top: 70px; }
 .bg-grey {
   margin-top: 40px;
   background-color: #f6f6f6;
-  padding: 60px 50px;
+  padding: 60px 60px;
   border-radius: 5px;
 }
 
 .bg-dark {
   background-color: #313131;
   color: white;
-  padding: 60px 50px;
+  padding: 60px 60px;
   border-radius: 5px;
   margin-top: 40px;
 }
 
 .bg-quote {
   border-radius: 50px;
-  padding: 40px;
+  padding: 60px;
   font-size: 20px;
 }
 
 #about-this-site .container {
   border-radius: 20px;
+  font-family: "Krushnadevaraya";
 }
 
 #about-this-site .h3 {
   font-family: 'Arvo', 700;
+}
+
+#up-arrow {
+  display: block;
+  text-align: center;
+}
+
+footer {
+  background-color: #313131;
+}
+
+.fa-globe {
+  display: block;
+  margin: auto;
+  margin-top: 20px;
+}
+
+.maps h4 {
+  text-align: center;
+}
+
+#instructions {
+  text-align: center;
+  margin-top: 15px;
 }

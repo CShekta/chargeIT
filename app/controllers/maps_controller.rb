@@ -1,33 +1,19 @@
 class MapsController < ApplicationController
   include HTTParty
-  include WattTimeWrapper
-
   before_action :authenticate_user!, only: [:map, :stations]
-
-
   BASE_URI = "https://api.watttime.org:443/api/v1"
-  @@latest_ba ||= nil   #the balancing authority previously called
-  @@watttime_calltime ||= nil  #the time watttime api was just called
-  @@latest_energy_data ||= []
-  @@latest_ev_calltime ||= nil  #the time when openchargemap was previously called
-  @@latest_marginal ||= [] #latest marginal carbon data
-  @@working_bas = ["BPA", "CAISO", "MISO", "ISONE"].cycle
 
+  # def map
+  #   production call for energy data
+  #   @energy_data = get_energy_data_for_location.sort_by { |each| each[:timestamp] }
+  # end
+
+# demo call for hard coded data
   def map
-
-
-    #update station database if needed
-    # if @@latest_ev_calltime.nil? || @@latest_ev_calltime < Time.now - 2.weeks
-    #   @@latest_ev_calltime = Time.now - 2.weeks
-    #   call_for_charging_stations(@@latest_ev_calltime)
-    #   @@latest_ev_calltime = Time.now
-    # end
-    #get energy data from watt time
-
-    @energy_data = get_energy_data_for_location.sort_by { |each| each[:timestamp] }
+    miso = File.read('lib/hard_data/miso_data.json')
+    hard_data = [miso]
+    @energy_data = JSON.parse(hard_data.sample)
     gon.carbon_perkWh = @energy_data.first["carbon"] / 1000
-
-    # @marginal_carbon = get_marginal.sort_by { |each| each[:timestamp] }
   end
 
   def about; end
@@ -42,14 +28,9 @@ class MapsController < ApplicationController
 
   def get_energy_data_for_location
     start_time = (Time.now - 2.day).strftime("%Y-%m-%d")
-    working_bas = ["BPA"]
-    if start_time
-      ba = working_bas.sample
-    else
-      ba = get_ba(params[:lat].to_s, params[:long].to_s)
-    end
+    # ba = get_ba(params[:lat].to_s, params[:long].to_s)
+    ba = "MISO"
     energy_data = HTTParty.get("#{BASE_URI}/datapoints/?ba=#{ba}&start_at=#{start_time}&market=RT5M", :headers => { "Authorization" => "TOKEN #{ENV['WATT_TIME_TOKEN']}"})
-    puts "ba: #{ba}"
     @energy_data = energy_data["results"]
   end
 
@@ -91,7 +72,7 @@ class MapsController < ApplicationController
     render json: { data: elements, status: 200 }.as_json
   end
 
-  def map_test
+  def get_initial_charging_stations
     @response = HTTParty.get("http://api.openchargemap.io/v2/poi/?output=json&countrycode=US&opendata=true&maxresults=10000")
     @response.each do |station|
       Station.create(
@@ -111,7 +92,7 @@ class MapsController < ApplicationController
     end
   end
 
-  def call_for_charging_stations(modified_since)
+  def update_charging_stations(modified_since)
     @stations = HTTParty.get("http://api.openchargemap.io/v2/poi/?output=json&countrycode=US&opendata=true&modifiedsince=#{modified_since}&maxresults=10000")
     @stations.each do |station|
       Station.where('ev_id = ?', station["ID"]).update(
