@@ -3,12 +3,9 @@ class MapsController < ApplicationController
   include WattTimeWrapper
 
   before_action :authenticate_user!, only: [:map, :stations]
-
-
   BASE_URI = "https://api.watttime.org:443/api/v1"
+
   def map
-
-
     #update station database if needed
     # if @@latest_ev_calltime.nil? || @@latest_ev_calltime < Time.now - 2.weeks
     #   @@latest_ev_calltime = Time.now - 2.weeks
@@ -36,7 +33,7 @@ class MapsController < ApplicationController
 
   def get_energy_data_for_location
     start_time = (Time.now - 2.day).strftime("%Y-%m-%d")
-    working_bas = ["BPA"]
+    working_bas = ["BPA", "CAISO"]
     if start_time
       ba = working_bas.sample
     else
