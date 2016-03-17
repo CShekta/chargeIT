@@ -6,13 +6,6 @@ class MapsController < ApplicationController
 
 
   BASE_URI = "https://api.watttime.org:443/api/v1"
-  @@latest_ba ||= nil   #the balancing authority previously called
-  @@watttime_calltime ||= nil  #the time watttime api was just called
-  @@latest_energy_data ||= []
-  @@latest_ev_calltime ||= nil  #the time when openchargemap was previously called
-  @@latest_marginal ||= [] #latest marginal carbon data
-  @@working_bas = ["BPA", "CAISO", "MISO", "ISONE"].cycle
-
   def map
 
 

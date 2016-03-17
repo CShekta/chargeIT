@@ -4,7 +4,6 @@
         <h4 class="text-right">
           Power Trip will text you when your energy is the cleanest.
         </h4>
-        <%= link_to "Sign Up", new_user_registration_path, class: "btn btn-default text-center" %>
   </div>
 
 <div class="row">
@@ -30,7 +29,7 @@
 </div>
 
 
-<div class-"row">
+<div class="row">
   <div class="container-fluid bg-dark col-md-8 pull-right">
     <h3 class="text-center">But Why?</h3>
     <p>
@@ -49,7 +48,7 @@
   </div>
 </div>
 
-<div class-"row">
+<div class="row">
   <div class="container-fluid bg-grey col-md-8">
     <h3 class="text-center">What We Can Do</h3>
     <p>
@@ -69,13 +68,14 @@
   </div>
 </div>
 
-
-<div class="container-fluid bg-dark col-md-12">
-  <h3 class="text-center">About This Site</h3>
-  <p>
-    This site was created by &copy <%= link_to "Claire", "https://github.com/CShekta", :target => "_blank" %> as part of her capstone project for <%= link_to "Ada Developer's Academy", "http://adadevelopersacademy.org/", :target => "_blank" %>. The code is open source and available on GitHub.
-  </p>
-  <a href="#about-this-site" title="To Top">
-    <span <i class="fa fa-arrow-up"></i></span>
-  </a>
+  <div class="row">
+    <footer>
+      <p>
+        This site was created by &copy <%= link_to "Claire", "https://github.com/CShekta", :target => "_blank" %> as part of her capstone project for <%= link_to "Ada Developer's Academy", "http://adadevelopersacademy.org/", :target => "_blank" %>. The code is open source and available on GitHub.
+      </p>
+      <a id="up-arrow" href="#about-this-site" title="To Top">
+        <span <i class="fa fa-arrow-up"></i></span>
+      </a>
+    </footer>
+  </div>
 </div>

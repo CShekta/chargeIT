@@ -4,8 +4,7 @@
     <div class="sidebar-tabs">
         <ul role="tablist">
           <li><a href="#about" role="tab"><i class="fa fa-bars"></i></a></li>
-          <li><a href="#carbon" role="tab"><i class="fa fa-area-chart"></i></a></li>
-          <li><a href="#marginal" role="tab"><i class="fa fa-line-chart"></i></a></li>
+          <li><a href="#carbon" role="tab"><i class="fa fa-line-chart"></i></a></li>
           <li><a href="#genmix" role="tab"><i class="fa fa-pie-chart"></i></a></li>
           <li><a href="#comparison" role="tab"><i class="fa fa-bar-chart"></i></a></li>
         </ul>
@@ -20,10 +19,10 @@
       <div class="sidebar-pane" id="about">
           <h1 class="sidebar-header">Energy Data<span class="sidebar-close"><i class="fa fa-caret-left"></i></span></h1>
           <h4>Explore Your Local Data</h4>
-          <p>Why it is important to research your local energy.</p>
-          <p>What is a balancing authority? What does this mean?</p>
-          <p>Click on the station markers to see the data of the corresponding balancing authority at this moment in time.</p>
-          <%= render partial: "shared/about" %>
+          <p id="instructions"><i>Click on a marker to get real time energy data</i></p>
+          <p>
+            <i class="fa fa-globe fa-5x text-center"></i>
+          </p>
       </div>
 
       <div class="sidebar-pane" id="carbon">
@@ -31,13 +30,6 @@
         <h4>Carbon Emissions</h4>
           <p>This shows the real time emission of carbon from your local power grid measured in pounds of carbon per megawatt of electricity produced.</p>
           <%= render partial: "shared/carbon" %>
-      </div>
-
-      <div class="sidebar-pane" id="marginal">
-        <h1 class="sidebar-header">Energy Data<span class="sidebar-close"><i class="fa fa-caret-left"></i></span></h1>
-        <h4>Marginal Carbon Emissions</h4>
-          <p>This is how you as an individual can affect change in your local balancing authority. Use electricity when this marginal carbon is low.</p>
-          <%= render partial: "shared/marginal" %>
       </div>
 
       <div class="sidebar-pane" id="genmix">
