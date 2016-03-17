@@ -4,17 +4,17 @@ class MapsController < ApplicationController
   BASE_URI = "https://api.watttime.org:443/api/v1"
 
   # production call for energy data
-  def map
-    @energy_data = get_energy_data_for_location.sort_by { |each| each[:timestamp] }
-  end
+  # def map
+  #   @energy_data = get_energy_data_for_location.sort_by { |each| each[:timestamp] }
+  # end
 
 # demo call for hard coded data
-  # def map
-  #   miso = File.read('lib/hard_data/miso_data.json')
-  #   hard_data = [miso]
-  #   @energy_data = hard_data.sample
-  #   # gon.carbon_perkWh = @energy_data.first["carbon"] / 1000
-  # end
+  def map
+    miso = JSON.parse(File.read('lib/hard_data/miso_data.json'))
+    hard_data = [miso]
+    @energy_data = hard_data.sample
+    # gon.carbon_perkWh = @energy_data.first["carbon"] / 1000
+  end
 
   def about; end
 
