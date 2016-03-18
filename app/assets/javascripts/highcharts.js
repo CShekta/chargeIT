@@ -1,14 +1,15 @@
 $(function () {
 
-    var honda = 29/100.0 * gon.carbon_perkWh;
+    // var honda = 29/100.0 * gon.carbon_perkWh;
+    var averageEV = 0.7;
     var gallonToCarbon = 20;
-    console.log(honda);
     // Create the chart
     $('#MPG-comparison').highcharts({
         chart: {
             type: 'column'
         },
         title: {
+            categories: ['Ford', 'Toyota', 'Honda Accord', 'Average EV'],
             text: 'Vehicle Comparisons'
         },
         xAxis: {
@@ -44,14 +45,8 @@ $(function () {
                 name: 'Honda Accord (2015)',
                 y: 29.0 / gallonToCarbon,
             }, {
-                name: 'Honda Fit EV (2014)',
-                y: honda,
-            }, {
-                name: 'Nissan Leaf (2016)',
-                y: 30/100.0 * gon.carbon_perkWh,
-            }, {
-                name: 'Tesla Model S AWD - 70D (2016)',
-                y: 33/100.0 * gon.carbon_perkWh,
+                name: 'Average Electric Vehicle (2016)',
+                y: averageEV,
             },
           ]
         }],
