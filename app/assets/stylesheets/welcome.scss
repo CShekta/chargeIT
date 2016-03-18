@@ -55,7 +55,7 @@ a:hover {
     font-weight: 700;
     letter-spacing: 50px;
     font-family: 'Megrim', 'sans-serif';
-    margin-top: 12%;
+    margin-top: 13%;
     text-shadow: 0 12px 20px #000;
     -webkit-animation-delay: 1s;
     -moz-animation-delay: 1s;
@@ -73,13 +73,8 @@ a:hover {
 }
 
 .welcome-link {
-  width: 120px;
-  height: 120px;
-  display: inline-block;
   margin-top: 90px;
   text-shadow: 0 2px 10px #000;
-  color: darkgreen;
-
   //
   // border-style: solid;
   // border-width: 1px;
@@ -132,19 +127,10 @@ a.splash-arrow {
     .splash-title {font-size: 1.5em;}
 }
 
-.splash .fa {
-  color: lightgreen;
-  display: inline-block;
-}
-
 .spash .fade-in {
   color: white;
 }
 
-.welcome body {
+.splash-title:hover {
   color: white;
-}
-
-.fa:hover {
-  color: black;
 }

@@ -5,35 +5,52 @@ class MapsController < ApplicationController
   before_action :authenticate_user!, only: [:map, :stations]
   BASE_URI = "https://api.watttime.org:443/api/v1"
 
+  #production method
+  # def map
+  #   #update station database if needed
+  #   # if @@latest_ev_calltime.nil? || @@latest_ev_calltime < Time.now - 2.weeks
+  #   #   @@latest_ev_calltime = Time.now - 2.weeks
+  #   #   call_for_charging_stations(@@latest_ev_calltime)
+  #   #   @@latest_ev_calltime = Time.now
+  #   # end
+  #   #get energy data from watt time
+  #
+  #   @energy_data = get_energy_data_for_location.sort_by { |each| each[:timestamp] }
+  #   gon.carbon_perkWh = @energy_data.first["carbon"] / 1000
+  #
+  #   # @marginal_carbon = get_marginal.sort_by { |each| each[:timestamp] }
+  # end
+
+# demo call for hard coded data
   def map
-    #update station database if needed
-    # if @@latest_ev_calltime.nil? || @@latest_ev_calltime < Time.now - 2.weeks
-    #   @@latest_ev_calltime = Time.now - 2.weeks
-    #   call_for_charging_stations(@@latest_ev_calltime)
-    #   @@latest_ev_calltime = Time.now
-    # end
-    #get energy data from watt time
-
-    @energy_data = get_energy_data_for_location.sort_by { |each| each[:timestamp] }
+    bpa = JSON.parse(File.read('lib/hard_data/bpa_data.json'))
+    @energy_data = bpa
     gon.carbon_perkWh = @energy_data.first["carbon"] / 1000
-
-    # @marginal_carbon = get_marginal.sort_by { |each| each[:timestamp] }
   end
 
   def about; end
 
   def graph_test
     @energy_data = get_energy_data_for_location.sort_by { |each| each[:timestamp] }
+    File.write("lib/hard_data/bpa2_data.json", @energy_data.to_json)
   end
 
   def get_fuel_data
-    @energy_data = get_energy_data_for_location
+    @energy_data = demo_get_energy_for_location
     render partial: "shared/carbon"
+  end
+
+  def demo_get_energy_for_location
+    miso = JSON.parse(File.read('lib/hard_data/miso_data.json'))
+    caiso = JSON.parse(File.read('lib/hard_data/caiso_data.json'))
+    bpa2 = JSON.parse(File.read('lib/hard_data/bpa2_data.json'))
+    hard_data = [miso, caiso, bpa2]
+    @energy_data = hard_data.sample
   end
 
   def get_energy_data_for_location
     start_time = (Time.now - 2.day).strftime("%Y-%m-%d")
-    working_bas = ["BPA", "CAISO"]
+    working_bas = ["BPA"]
     if start_time
       ba = working_bas.sample
     else
